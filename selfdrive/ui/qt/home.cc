@@ -130,7 +130,7 @@ void HomeWindow::mousePressEvent(QMouseEvent* e) {
   //   return;
   // }
   // Stock UI Toggle
-  if (QUIState::ui_state.scene.started && !sidebar->isVisible() && !QUIState::ui_state.scene.map_on_top && QUIState::ui_state.scene.comma_stock_ui && stockui_btn.ptInRect(e->x(), e->y())) {
+  if (QUIState::ui_state.scene.started && !sidebar->isVisible() && !QUIState::ui_state.scene.map_on_top && stockui_btn.ptInRect(e->x(), e->y())) {
     QUIState::ui_state.scene.comma_stock_ui = !QUIState::ui_state.scene.comma_stock_ui;
     if (QUIState::ui_state.scene.comma_stock_ui) {
       Params().put("CommaStockUI", "1", 1);
