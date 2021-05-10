@@ -480,11 +480,11 @@ static void ui_draw_vision_maxspeed_org(UIState *s) {
   const Rect rect = {s->viz_rect.x + (bdr_s), int(s->viz_rect.y + (bdr_s)), 184, 202};
   NVGcolor color = COLOR_BLACK_ALPHA(100);
   if (s->is_speed_over_limit) {
-    color = COLOR_OCHRE_ALPHA(150);
+    color = COLOR_OCHRE_ALPHA(100);
   } else if (s->scene.limitSpeedCamera > 29 && !s->is_speed_over_limit) {
-    color = nvgRGBA(0, 120, 0, 150);
+    color = nvgRGBA(0, 120, 0, 100);
   } else if (s->scene.cruiseAccStatus) {
-    color = nvgRGBA(0, 100, 200, 150);
+    color = nvgRGBA(0, 100, 200, 100);
   } else if (s->scene.controls_state.getEnabled()) {
     color = COLOR_WHITE_ALPHA(75);
   }
@@ -494,15 +494,9 @@ static void ui_draw_vision_maxspeed_org(UIState *s) {
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
   if (cruise_speed >= 30 && s->scene.controls_state.getEnabled()) {
     const std::string cruise_speed_str = std::to_string((int)std::nearbyint(cruise_speed));
-    if (s->is_speed_over_limit) {
-      ui_draw_text(s, rect.centerX(), int(s->viz_rect.y + (bdr_s))+65, cruise_speed_str.c_str(), 26 * 2.3, COLOR_ORANGE_ALPHA(is_cruise_set ? 200 : 100), "sans-bold");
-    } else if (s->scene.cruiseAccStatus) {
-      ui_draw_text(s, rect.centerX(), int(s->viz_rect.y + (bdr_s))+65, cruise_speed_str.c_str(), 26 * 2.3, COLOR_BLUE_ALPHA(is_cruise_set ? 200 : 100), "sans-bold");
-    } else {
-      ui_draw_text(s, rect.centerX(), int(s->viz_rect.y + (bdr_s))+65, cruise_speed_str.c_str(), 26 * 2.3, COLOR_WHITE_ALPHA(is_cruise_set ? 200 : 100), "sans-bold");
-    }
+    ui_draw_text(s, rect.centerX(), int(s->viz_rect.y + (bdr_s))+65, cruise_speed_str.c_str(), 26 * 2.4, COLOR_WHITE_ALPHA(is_cruise_set ? 200 : 100), "sans-bold");
   } else {
-  	ui_draw_text(s, rect.centerX(), int(s->viz_rect.y + (bdr_s))+65, "-", 26 * 2.3, COLOR_WHITE_ALPHA(is_cruise_set ? 200 : 100), "sans-semibold");
+  	ui_draw_text(s, rect.centerX(), int(s->viz_rect.y + (bdr_s))+65, "-", 26 * 2.4, COLOR_WHITE_ALPHA(is_cruise_set ? 200 : 100), "sans-semibold");
   }
   if (is_cruise_set) {
     const std::string maxspeed_str = std::to_string((int)std::nearbyint(maxspeed));
