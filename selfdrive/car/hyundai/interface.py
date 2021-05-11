@@ -217,17 +217,17 @@ class CarInterface(CarInterfaceBase):
     ret.gasMaxBP = [0.]    # m/s
     ret.gasMaxV = [1.]    # max gas allowed
     ret.brakeMaxBP = [0., 4., 8.]  # m/s
-    ret.brakeMaxV = [0.7, 1.0, 1.3]   # max brake allowed
+    ret.brakeMaxV = [0.7, 1.1, 1.3]   # max brake allowed
 
     ret.longitudinalTuning.kpBP = [0., 4., 35.]
-    ret.longitudinalTuning.kpV = [1.5, 1., 0.5]
+    ret.longitudinalTuning.kpV = [1.5, 0.9., 0.4]
     ret.longitudinalTuning.kiBP = [0., 4., 35.]
     ret.longitudinalTuning.kiV = [0.2, 0.13, 0.07]
 
     ret.longitudinalTuning.deadzoneBP = [0.]
     ret.longitudinalTuning.deadzoneV = [0.]
     ret.longitudinalTuning.kdBP = [0., 16., 35.]
-    ret.longitudinalTuning.kdV = [0.08, 1.215, 2.51]
+    ret.longitudinalTuning.kdV = [0.08, 1.315, 2.51]
 
     ret.enableCamera = True
     ret.enableBsm = 0x58b in fingerprint[0]

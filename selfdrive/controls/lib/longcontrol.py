@@ -128,9 +128,9 @@ class LongControl():
 
       # if abs(output_gb) < abs(a_target_raw)/afactor and a_target_raw < 0 and dRel >= 4.0:
       #   output_gb = (-abs(a_target_raw)/afactor)*dfactor
-      if output_gb > 0 and a_target_raw < 0 and dRel >= 4:
+      if output_gb > 0 and a_target_raw < 0 and dRel >= 4.0:
         output_gb = output_gb/vfactor
-      elif output_gb > 0 and a_target_raw > 0 and dRel >= 4 and (CS.vEgo*3.6) < 65:
+      elif output_gb > 0 and a_target_raw > 0 and dRel >= 4.0 and (CS.vEgo*3.6) < 65:
         output_gb = output_gb/dvfactor
       
       if prevent_overshoot or CS.brakeHold:
@@ -154,7 +154,7 @@ class LongControl():
     elif self.long_control_state == LongCtrlState.starting:
       factor = 1
       if hasLead:
-        factor = interp(dRel,[0.0,2.0,3.0,4.0,5.0], [0.0,0.5,1.0,300.0,1000.0])
+        factor = interp(dRel,[0.0,2.0,3.0,4.0,5.0], [0.0,0.5,1,500.0,1500.0])
       if output_gb < -0.2:
         output_gb += CP.startingBrakeRate / RATE * factor
       self.reset(CS.vEgo)
