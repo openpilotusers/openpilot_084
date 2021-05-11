@@ -458,6 +458,13 @@ QWidget * user_panel(QWidget * parent) {
                                           std::system(record_del);
                                         }
                                       }));
+  const char* realdata_del = "rm -rf /storage/emulated/0/realdata/*";
+  layout->addWidget(new ButtonControl("주행로그 전부 삭제", "실행", "저장된 주행로그를 모두 삭제합니다.",
+                                      [=]() { 
+                                        if (ConfirmationDialog::confirm("저장된 주행로그를 모두 삭제합니다. 진행하시겠습니까?")){
+                                          std::system(realdata_del);
+                                        }
+                                      }));
   layout->addWidget(new MonitoringMode());
   layout->addWidget(new MonitorEyesThreshold());
   layout->addWidget(new NormalEyesThreshold());
