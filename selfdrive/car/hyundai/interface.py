@@ -217,7 +217,7 @@ class CarInterface(CarInterfaceBase):
     ret.gasMaxBP = [0.]    # m/s
     ret.gasMaxV = [1.]    # max gas allowed
     ret.brakeMaxBP = [0., 4., 8.]  # m/s
-    ret.brakeMaxV = [0.7, 1.1, 1.3]   # max brake allowed
+    ret.brakeMaxV = [0.7, 1.1, 2.5]   # max brake allowed
 
     ret.longitudinalTuning.kpBP = [0., 4., 35.]
     ret.longitudinalTuning.kpV = [1.4, 0.9, 0.4]
