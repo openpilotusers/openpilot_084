@@ -130,31 +130,28 @@ class SpdctrlLong(SpdController):
             else:
                 self.seq_step_debug = "거리유지"
         # 선행차량이 멀리 있는 상태에서 감속 조건
-        elif 20 <= dRel < 149 and lead_objspd < -20 and not self.map_decel_only: #정지 차량 및 급감속 차량 발견 시
+        elif 6 < dRel < 149 and lead_objspd < -20 and not self.map_decel_only: #정지 차량 및 급감속 차량 발견 시
             self.seq_step_debug = "정차차량 감속"
             lead_wait_cmd, lead_set_speed = self.get_tm_speed(CS, max(15, dRel-30), -10)
         elif self.cruise_set_speed_kph > int(round((CS.clu_Vanz))) and not self.map_decel_only:  #이온설정속도가 차량속도보다 큰경우
-            # if 10 > dRel > 3 and lead_objspd <= 0 and 1 < int(CS.clu_Vanz) <= 7 and CS.VSetDis < 45 and ((int(round(self.target_speed)) > int(CS.VSetDis) and self.target_speed != 0) or self.target_speed == 0):
-            #     self.seq_step_debug = "출발속도조정"
-            #     lead_wait_cmd, lead_set_speed = self.get_tm_speed( CS, 8, 5)
             if 20 > dRel > 3 and lead_objspd > 5 and CS.clu_Vanz <= 25 and CS.VSetDis < 55 and ((int(round(self.target_speed)) > int(CS.VSetDis) and self.target_speed != 0) or self.target_speed == 0):
                 self.seq_step_debug = "SS>VS,출발"
                 lead_wait_cmd, lead_set_speed = self.get_tm_speed( CS, 50, 1)
             elif lead_objspd > 0 and int(CS.clu_Vanz)+lead_objspd >= int(CS.VSetDis) and int(CS.clu_Vanz*0.4) < dRel < 149 and ((int(round(self.target_speed)) > int(CS.VSetDis) and self.target_speed != 0) or self.target_speed == 0):
                 self.seq_step_debug = "SS>VS,+1"
                 lead_wait_cmd, lead_set_speed = self.get_tm_speed( CS, 15, 1)
-            elif CS.clu_Vanz > 80 and lead_objspd < -1 and (int(CS.clu_Vanz)-1) <= int(CS.VSetDis) and int(CS.clu_Vanz) >= dRel*1.7 and 1 < dRel < 149: # 유지거리 범위 외 감속 조건 앞차 감속중 현재속도/2 아래로 거리 좁혀졌을 때 상대속도에 따라 점진적 감소
+            elif CS.clu_Vanz > 80 and lead_objspd < -2 and int(CS.clu_Vanz) <= int(CS.VSetDis) and int(CS.clu_Vanz) >= dRel*1.7 and 1 < dRel < 149: # 유지거리 범위 외 감속 조건 앞차 감속중 현재속도/2 아래로 거리 좁혀졌을 때 상대속도에 따라 점진적 감소
                 self.seq_step_debug = "SS>VS,v>80,-1"
                 lead_wait_cmd, lead_set_speed = self.get_tm_speed( CS, max(15, 50+(lead_objspd*2)), -1)
-            elif CS.clu_Vanz > 60 and lead_objspd < -1 and (int(CS.clu_Vanz)-1) <= int(CS.VSetDis) and int(CS.clu_Vanz) >= dRel*1.9 and 1 < dRel < 149: # 유지거리 범위 외 감속 조건 앞차 감속중 현재속도/2 아래로 거리 좁혀졌을 때 상대속도에 따라 점진적 감소
+            elif CS.clu_Vanz > 60 and lead_objspd < -2 and int(CS.clu_Vanz) <= int(CS.VSetDis) and int(CS.clu_Vanz) >= dRel*1.9 and 1 < dRel < 149: # 유지거리 범위 외 감속 조건 앞차 감속중 현재속도/2 아래로 거리 좁혀졌을 때 상대속도에 따라 점진적 감소
                 self.seq_step_debug = "SS>VS,v>60,-1"
                 lead_wait_cmd, lead_set_speed = self.get_tm_speed( CS, max(15, 70+(lead_objspd*2)), -1)
-            elif CS.clu_Vanz > 40 and lead_objspd < -1 and (int(CS.clu_Vanz)-1) <= int(CS.VSetDis) and int(CS.clu_Vanz) >= dRel*2.2 and 1 < dRel < 149: # 유지거리 범위 외 감속 조건 앞차 감속중 현재속도/2 아래로 거리 좁혀졌을 때 상대속도에 따라 점진적 감소
+            elif CS.clu_Vanz > 40 and lead_objspd < -2 and int(CS.clu_Vanz) <= int(CS.VSetDis) and int(CS.clu_Vanz) >= dRel*2.2 and 1 < dRel < 149: # 유지거리 범위 외 감속 조건 앞차 감속중 현재속도/2 아래로 거리 좁혀졌을 때 상대속도에 따라 점진적 감소
                 self.seq_step_debug = "SS>VS,v>40,-1"
                 lead_wait_cmd, lead_set_speed = self.get_tm_speed( CS, max(15, 90+(lead_objspd*2)), -1)
-            elif 60 > CS.clu_Vanz > 30 and lead_objspd < -1 and (int(CS.clu_Vanz)-1) <= int(CS.VSetDis) and int(CS.clu_Vanz) >= dRel*0.85 and 1 < dRel < 149:
+            elif 60 > CS.clu_Vanz > 30 and lead_objspd < -2 and int(CS.clu_Vanz) <= int(CS.VSetDis) and int(CS.clu_Vanz) >= dRel*0.85 and 1 < dRel < 149:
                 self.seq_step_debug = "SS>VS,60>v>30,-1"
-                lead_wait_cmd, lead_set_speed = self.get_tm_speed( CS, max(15, 150-(abs(lead_objspd**3))), -1)
+                lead_wait_cmd, lead_set_speed = self.get_tm_speed( CS, max(15, 200-(abs(lead_objspd**3))), -1)
             elif 7 < int(CS.clu_Vanz) < 30 and lead_objspd < 0 and CS.VSetDis > 30:
                 self.seq_step_debug = "SS>VS,30이하"
                 lead_wait_cmd, lead_set_speed = self.get_tm_speed( CS, 15, -5)
