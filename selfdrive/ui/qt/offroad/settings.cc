@@ -94,7 +94,7 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
                                   "../assets/offroad/icon_shell.png",
                                   this));
   toggles.append(new ParamControl("OpkrEnableUploader",
-                                  "주행로그 서버 전송",
+                                  "주행로그 서버 전송(사용주의-설명참조)",
                                   "주행로그를 콤마서버로 전송합니다. 판다 세이프티 코드 및 모니터링 수치를 수정한 경우는 활성화하지 마십시오. 기기가 콤마 네트워크로부터 차단되며 standalone상태로만 동작됩니다.",
                                   "../assets/offroad/icon_shell.png",
                                   this));
