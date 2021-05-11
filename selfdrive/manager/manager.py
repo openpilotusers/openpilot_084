@@ -44,6 +44,7 @@ def manager_init():
     ("OpkrUIVolumeBoost", "0"),
     ("OpkrEnableDriverMonitoring", "1"),
     ("OpkrEnableLogger", "0"),
+    ("OpkrEnableUploader", "0"),
     ("OpkrEnableGetoffAlert", "1"),
     ("OpkrAutoResume", "1"),
     ("OpkrVariableCruise", "1"),

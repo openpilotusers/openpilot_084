@@ -180,6 +180,7 @@ keys = {
   b"ModelLongEnabled": [TxType.PERSISTENT],
   b"OpkrFanSpeedGain": [TxType.PERSISTENT],
   b"CommaStockUI": [TxType.PERSISTENT],
+  b"OpkrEnableUploader": [TxType.PERSISTENT],
 }
 
 def ensure_bytes(v):
