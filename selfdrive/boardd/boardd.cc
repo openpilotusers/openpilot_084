@@ -475,11 +475,7 @@ void pigeon_thread() {
   // ubloxRaw = 8042
   PubMaster pm({"ubloxRaw"});
 
-#ifdef QCOM2
-  Pigeon *pigeon = Pigeon::connect("/dev/ttyHS0");
-#else
-  Pigeon *pigeon = Pigeon::connect(panda);
-#endif
+  Pigeon *pigeon = Hardware::TICI() ? Pigeon::connect("/dev/ttyHS0") : Pigeon::connect(panda);
 
   pigeon->init();
 
@@ -509,7 +505,8 @@ int main() {
   // set process priority and affinity
   err = set_realtime_priority(54);
   LOG("set priority returns %d", err);
-  err = set_core_affinity(3);
+
+  err = set_core_affinity(Hardware::TICI() ? 4 : 3);
   LOG("set affinity returns %d", err);
 
   // check the environment
@@ -520,8 +517,6 @@ int main() {
   if (getenv("FAKESEND")) {
     fake_send = true;
   }
-
-  panda_set_power(true);
 
   while (!do_exit){
     std::vector<std::thread> threads;
