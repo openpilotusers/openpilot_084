@@ -1,23 +1,24 @@
-#include <string>
+#include "settings.h"
+
+#include <cassert>
 #include <iostream>
 #include <sstream>
-#include <cassert>
+#include <string>
 #include <QProcess>
 
 #ifndef QCOM
-#include "networking.hpp"
+#include "selfdrive/ui/qt/offroad/networking.h"
 #endif
-#include "settings.hpp"
-#include "widgets/input.hpp"
-#include "widgets/toggle.hpp"
-#include "widgets/offroad_alerts.hpp"
-#include "widgets/scrollview.hpp"
-#include "widgets/controls.hpp"
-#include "widgets/ssh_keys.hpp"
-#include "common/params.h"
-#include "common/util.h"
+#include "selfdrive/common/params.h"
+#include "selfdrive/common/util.h"
 #include "selfdrive/hardware/hw.h"
-#include "ui.hpp"
+#include "selfdrive/ui/qt/widgets/controls.h"
+#include "selfdrive/ui/qt/widgets/input.h"
+#include "selfdrive/ui/qt/widgets/offroad_alerts.h"
+#include "selfdrive/ui/qt/widgets/scrollview.h"
+#include "selfdrive/ui/qt/widgets/ssh_keys.h"
+#include "selfdrive/ui/qt/widgets/toggle.h"
+#include "selfdrive/ui/ui.h"
 
 TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *toggles_list = new QVBoxLayout();
@@ -602,7 +603,13 @@ QWidget * tuning_panel(QWidget * parent) {
   return w;
 }
 
-SettingsWindow::SettingsWindow(QWidget *parent) : QFrame(parent) {
+void SettingsWindow::showEvent(QShowEvent *event) {
+  if (layout()) {
+    panel_widget->setCurrentIndex(0);
+    nav_btns->buttons()[0]->setChecked(true);
+    return;
+  }
+
   // setup two main layouts
   QVBoxLayout *sidebar_layout = new QVBoxLayout();
   sidebar_layout->setMargin(0);
@@ -644,6 +651,7 @@ SettingsWindow::SettingsWindow(QWidget *parent) : QFrame(parent) {
   for (auto &[name, panel] : panels) {
     QPushButton *btn = new QPushButton(name);
     btn->setCheckable(true);
+    btn->setChecked(nav_btns->buttons().size() == 0);
     btn->setStyleSheet(R"(
       QPushButton {
         color: grey;
@@ -707,9 +715,3 @@ void SettingsWindow::hideEvent(QHideEvent *event){
     }
   }
 }
-
-void SettingsWindow::showEvent(QShowEvent *event){
-  panel_widget->setCurrentIndex(0);
-  nav_btns->buttons()[0]->setChecked(true);
-}
-
