@@ -522,10 +522,10 @@ void Device::ScreenAwake()
   }
 
   int  cur_key = s.scene.scr.awake;
-  if (draw_alerts && s.scene.alert_size != cereal::ControlsState::AlertSize::NONE) 
-  {
-      cur_key += 1;
-  }
+  //if (draw_alerts && s.scene.alert_size != cereal::ControlsState::AlertSize::NONE) 
+  //{
+  //    cur_key += 1;
+  //}
 
   // static int  time_disp = 0;
   // time_disp++;
