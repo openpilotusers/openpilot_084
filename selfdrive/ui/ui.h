@@ -159,8 +159,6 @@ typedef struct UIScene {
   bool forceGearD;
   bool comma_stock_ui;
 
-  NetStatus athenaStatus;
-
   cereal::DeviceState::Reader deviceState;
   cereal::RadarState::LeadData::Reader lead_data[2];
   cereal::CarState::Reader car_state;
