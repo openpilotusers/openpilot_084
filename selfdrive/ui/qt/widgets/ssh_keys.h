@@ -10,7 +10,7 @@ class SshToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  SshToggle() : ToggleControl("SSH Á¢¼Ó »ç", "", "", Hardware::get_ssh_enabled()) {
+  SshToggle() : ToggleControl("SSH ì ‘ì† ì‚¬", "", "", Hardware::get_ssh_enabled()) {
     QObject::connect(this, &SshToggle::toggleFlipped, [=](bool state) {
       Hardware::set_ssh_enabled(state);
     });
@@ -39,7 +39,7 @@ class SshLegacyToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  SshLegacyToggle() : ToggleControl("±âÁ¸ °ø°³KEY »ç¿ë", "SSH Á¢¼Ó½Ã ±âÁ¸ °ø°³KEY(0.8.2ÀÌÇÏ)¸¦ »ç¿ëÇÕ´Ï´Ù.", "", Params().getBool("OpkrSSHLegacy")) {
+  SshLegacyToggle() : ToggleControl("ê¸°ì¡´ ê³µê°œKEY ì‚¬ìš©", "SSH ì ‘ì†ì‹œ ê¸°ì¡´ ê³µê°œKEY(0.8.2ì´í•˜)ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.", "", Params().getBool("OpkrSSHLegacy")) {
     QObject::connect(this, &SshLegacyToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrSSHLegacy", &value, 1);
@@ -51,7 +51,7 @@ class GetoffAlertToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  GetoffAlertToggle() : ToggleControl("¿îÇàÁ¾·á½Ã ÀÌ¿ÂÅ»Âø ¾Ë¸² »ç¿ë", "¿îÇàÁ¾·á ÈÄ ÀÌ¿ÂÀ» ºĞ¸®ÇÏ¶ó´Â ¾Ë¸²À» º¸³À´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrEnableGetoffAlert")) {
+  GetoffAlertToggle() : ToggleControl("ìš´í–‰ì¢…ë£Œì‹œ ì´ì˜¨íƒˆì°© ì•Œë¦¼ ì‚¬ìš©", "ìš´í–‰ì¢…ë£Œ í›„ ì´ì˜¨ì„ ë¶„ë¦¬í•˜ë¼ëŠ” ì•Œë¦¼ì„ ë³´ëƒ…ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrEnableGetoffAlert")) {
     QObject::connect(this, &GetoffAlertToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrEnableGetoffAlert", &value, 1);
@@ -63,7 +63,7 @@ class AutoResumeToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  AutoResumeToggle() : ToggleControl("ÀÚµ¿Ãâ¹ß ±â´É »ç¿ë", "SCC »ç¿ëÁß Á¤Â÷½Ã ÀÚµ¿Ãâ¹ß ±â´ÉÀ» »ç¿ëÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrAutoResume")) {
+  AutoResumeToggle() : ToggleControl("ìë™ì¶œë°œ ê¸°ëŠ¥ ì‚¬ìš©", "SCC ì‚¬ìš©ì¤‘ ì •ì°¨ì‹œ ìë™ì¶œë°œ ê¸°ëŠ¥ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrAutoResume")) {
     QObject::connect(this, &AutoResumeToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrAutoResume", &value, 1);
@@ -75,7 +75,7 @@ class VariableCruiseToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  VariableCruiseToggle() : ToggleControl("°¡º¯ Å©·çÁî »ç¿ë", "SCC »ç¿ëÁß Å©·çÁî ¹öÆ°À» ÀÌ¿ëÇÏ¿© °¡°¨¼ÓÀ» º¸Á¶ÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrVariableCruise")) {
+  VariableCruiseToggle() : ToggleControl("ê°€ë³€ í¬ë£¨ì¦ˆ ì‚¬ìš©", "SCC ì‚¬ìš©ì¤‘ í¬ë£¨ì¦ˆ ë²„íŠ¼ì„ ì´ìš©í•˜ì—¬ ê°€ê°ì†ì„ ë³´ì¡°í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrVariableCruise")) {
     QObject::connect(this, &VariableCruiseToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrVariableCruise", &value, 1);
@@ -87,7 +87,7 @@ class CruiseGapAdjustToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  CruiseGapAdjustToggle() : ToggleControl("Á¤Â÷½Ã Å©·çÁî °¸ ÀÚµ¿º¯°æ", "Á¤Â÷½Ã ºü¸¥ Ãâ¹ßÀ» À§ÇØ Å©·çÁî°¸À» 1Ä­À¸·Î º¯°æÇÏ¸ç, Ãâ¹ßÈÄ ÀÏÁ¤Á¶°Ç¿¡ µû¶ó ´Ù½Ã ¿ø·¡ÀÇ Å©·çÁî°¸À¸·Î µ¹¾Æ°©´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("CruiseGapAdjust")) {
+  CruiseGapAdjustToggle() : ToggleControl("ì •ì°¨ì‹œ í¬ë£¨ì¦ˆ ê°­ ìë™ë³€ê²½", "ì •ì°¨ì‹œ ë¹ ë¥¸ ì¶œë°œì„ ìœ„í•´ í¬ë£¨ì¦ˆê°­ì„ 1ì¹¸ìœ¼ë¡œ ë³€ê²½í•˜ë©°, ì¶œë°œí›„ ì¼ì •ì¡°ê±´ì— ë”°ë¼ ë‹¤ì‹œ ì›ë˜ì˜ í¬ë£¨ì¦ˆê°­ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("CruiseGapAdjust")) {
     QObject::connect(this, &CruiseGapAdjustToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("CruiseGapAdjust", &value, 1);
@@ -99,7 +99,7 @@ class AutoEnabledToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  AutoEnabledToggle() : ToggleControl("ÀÚµ¿ ÀÎ°ÔÀÌÁö È°¼º", "µğ½ºÀÎ°ÔÀÌÁö »óÅÂ¿¡¼­ Å©·çÁî ¹öÆ°»óÅÂ°¡ ´ë±â»óÅÂ(CRUISEÇ¥½Ã¸¸ ³ª¿À°í ¼Óµµ ÁöÁ¤ÀÌ ¾ÈµÈ»óÅÂ)ÀÏ °æ¿ì ÀÚµ¿ ÀÎ°ÔÀÌÁö¸¦ È°¼ºÈ­ ÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("AutoEnable")) {
+  AutoEnabledToggle() : ToggleControl("ìë™ ì¸ê²Œì´ì§€ í™œì„±", "ë””ìŠ¤ì¸ê²Œì´ì§€ ìƒíƒœì—ì„œ í¬ë£¨ì¦ˆ ë²„íŠ¼ìƒíƒœê°€ ëŒ€ê¸°ìƒíƒœ(CRUISEí‘œì‹œë§Œ ë‚˜ì˜¤ê³  ì†ë„ ì§€ì •ì´ ì•ˆëœìƒíƒœ)ì¼ ê²½ìš° ìë™ ì¸ê²Œì´ì§€ë¥¼ í™œì„±í™” í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("AutoEnable")) {
     QObject::connect(this, &AutoEnabledToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("AutoEnable", &value, 1);
@@ -111,7 +111,7 @@ class CruiseAutoResToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  CruiseAutoResToggle() : ToggleControl("ÀÚµ¿ RES »ç¿ë", "Å©·çÁî »ç¿ëÁß ºê·¹ÀÌÅ©¸¦ ¹â¾Æ ´ë±â¸ğµå »óÅÂ·Î º¯ÇÑ°æ¿ì(CANCELÀº ÇØ´ç¾øÀ½) ºê·¹ÀÌÅ© Æä´Ş ÇØÁ¦½Ã ´Ù½Ã ÀÌÀü ¼Óµµ·Î ¼¼ÆÃÇÕ´Ï´Ù. Å©·çÁî ¼Óµµ°¡ ¼¼ÆÃµÇ¾î ÀÖ°í Â÷·®¼Óµµ°¡ 30km/h ÀÌ»ó È¤Àº ¾ÕÂ÷°¡ ÀÎ½ÄµÉ °æ¿ì ÀÛµ¿ÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("CruiseAutoRes")) {
+  CruiseAutoResToggle() : ToggleControl("ìë™ RES ì‚¬ìš©", "í¬ë£¨ì¦ˆ ì‚¬ìš©ì¤‘ ë¸Œë ˆì´í¬ë¥¼ ë°Ÿì•„ ëŒ€ê¸°ëª¨ë“œ ìƒíƒœë¡œ ë³€í•œê²½ìš°(CANCELì€ í•´ë‹¹ì—†ìŒ) ë¸Œë ˆì´í¬ í˜ë‹¬ í•´ì œì‹œ ë‹¤ì‹œ ì´ì „ ì†ë„ë¡œ ì„¸íŒ…í•©ë‹ˆë‹¤. í¬ë£¨ì¦ˆ ì†ë„ê°€ ì„¸íŒ…ë˜ì–´ ìˆê³  ì°¨ëŸ‰ì†ë„ê°€ 30km/h ì´ìƒ í˜¹ì€ ì•ì°¨ê°€ ì¸ì‹ë  ê²½ìš° ì‘ë™í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("CruiseAutoRes")) {
     QObject::connect(this, &CruiseAutoResToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("CruiseAutoRes", &value, 1);
@@ -123,7 +123,7 @@ class BatteryChargingControlToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  BatteryChargingControlToggle() : ToggleControl("¹èÅÍ¸® ÃæÀü Á¦¾î±â´É »ç¿ë", "¹èÅÍ¸® ÃæÀüÁ¦¾î ±â´ÉÀ» »ç¿ëÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrBatteryChargingControl")) {
+  BatteryChargingControlToggle() : ToggleControl("ë°°í„°ë¦¬ ì¶©ì „ ì œì–´ê¸°ëŠ¥ ì‚¬ìš©", "ë°°í„°ë¦¬ ì¶©ì „ì œì–´ ê¸°ëŠ¥ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrBatteryChargingControl")) {
     QObject::connect(this, &BatteryChargingControlToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrBatteryChargingControl", &value, 1);
@@ -135,7 +135,7 @@ class BlindSpotDetectToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  BlindSpotDetectToggle() : ToggleControl("ÈÄÃø¹æ °¨Áö ¾ÆÀÌÄÜ Ç¥½Ã", "ÈÄÃø¹æ¿¡ Â÷°¡ °¨ÁöµÇ¸é È­¸é¿¡ ¾ÆÀÌÄÜÀ» ¶ç¿ó´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrBlindSpotDetect")) {
+  BlindSpotDetectToggle() : ToggleControl("í›„ì¸¡ë°© ê°ì§€ ì•„ì´ì½˜ í‘œì‹œ", "í›„ì¸¡ë°©ì— ì°¨ê°€ ê°ì§€ë˜ë©´ í™”ë©´ì— ì•„ì´ì½˜ì„ ë„ì›ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrBlindSpotDetect")) {
     QObject::connect(this, &BlindSpotDetectToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrBlindSpotDetect", &value, 1);
@@ -147,7 +147,7 @@ class SteerWindDownToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  SteerWindDownToggle() : ToggleControl("Steer Wind Down", "Steer Warning ½Ã ÅäÅ©¸¦ ¼­¼­È÷ ´Ù¿î½ÃÅµ´Ï´Ù. ÀÏºÎ Â÷·®ÀÇ °æ¿ì Á¶Çâ°¢ Á¦ÇÑµîÀÌ ³ªÅ¸³¯ ¼ö ÀÖÀ¸´Ï ¿¡·¯»ó°ü¾øÀÌ ÃÖ´ëÁ¶Çâ°¢À» ¾²·Á¸é ±â´ÉÀ» ²ô½Ê½Ã¿À.", "../assets/offroad/icon_shell.png", Params().getBool("SteerWindDown")) {
+  SteerWindDownToggle() : ToggleControl("Steer Wind Down", "Steer Warning ì‹œ í† í¬ë¥¼ ì„œì„œíˆ ë‹¤ìš´ì‹œí‚µë‹ˆë‹¤. ì¼ë¶€ ì°¨ëŸ‰ì˜ ê²½ìš° ì¡°í–¥ê° ì œí•œë“±ì´ ë‚˜íƒ€ë‚  ìˆ˜ ìˆìœ¼ë‹ˆ ì—ëŸ¬ìƒê´€ì—†ì´ ìµœëŒ€ì¡°í–¥ê°ì„ ì“°ë ¤ë©´ ê¸°ëŠ¥ì„ ë„ì‹­ì‹œì˜¤.", "../assets/offroad/icon_shell.png", Params().getBool("SteerWindDown")) {
     QObject::connect(this, &SteerWindDownToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("SteerWindDown", &value, 1);
@@ -159,7 +159,7 @@ class AutoScreenDimmingToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  AutoScreenDimmingToggle() : ToggleControl("ÁÖÇàÈ­¸é Dimming Á¦¾î", "ÁÖÇà½Ã ÃÖ¼ÒÇÑÀÇ ¹à±â¸¦ À¯ÁöÇÏ¿© ¹èÅÍ¸® ¼Ò¸ğ·® ¹× ¹ß¿­À» ÁÙÀÌ¸ç, ÀÌº¥Æ® ¹ß»ı ½Ã ¹à±â¸¦ ³ô¿© ÀÏ½ÃÀûÀ¸·Î °¡½Ã¼ºÀ» È®º¸ÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrAutoScreenDimming")) {
+  AutoScreenDimmingToggle() : ToggleControl("ì£¼í–‰í™”ë©´ Dimming ì œì–´", "ì£¼í–‰ì‹œ ìµœì†Œí•œì˜ ë°ê¸°ë¥¼ ìœ ì§€í•˜ì—¬ ë°°í„°ë¦¬ ì†Œëª¨ëŸ‰ ë° ë°œì—´ì„ ì¤„ì´ë©°, ì´ë²¤íŠ¸ ë°œìƒ ì‹œ ë°ê¸°ë¥¼ ë†’ì—¬ ì¼ì‹œì ìœ¼ë¡œ ê°€ì‹œì„±ì„ í™•ë³´í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrAutoScreenDimming")) {
     QObject::connect(this, &AutoScreenDimmingToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrAutoScreenDimming", &value, 1);
@@ -171,7 +171,7 @@ class LiveSteerRatioToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  LiveSteerRatioToggle() : ToggleControl("Live SteerRatio »ç¿ë", "°¡º¯/°íÁ¤ SR ´ë½Å Live SteerRatio¸¦ »ç¿ëÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrLiveSteerRatio")) {
+  LiveSteerRatioToggle() : ToggleControl("Live SteerRatio ì‚¬ìš©", "ê°€ë³€/ê³ ì • SR ëŒ€ì‹  Live SteerRatioë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrLiveSteerRatio")) {
     QObject::connect(this, &LiveSteerRatioToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrLiveSteerRatio", &value, 1);
@@ -183,7 +183,7 @@ class VariableSteerMaxToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  VariableSteerMaxToggle() : ToggleControl("°¡º¯ SteerMax »ç¿ë", "°î·ü¿¡ µû¸¥ °¡º¯ SteerMaxÀ» »ç¿ëÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrVariableSteerMax")) {
+  VariableSteerMaxToggle() : ToggleControl("ê°€ë³€ SteerMax ì‚¬ìš©", "ê³¡ë¥ ì— ë”°ë¥¸ ê°€ë³€ SteerMaxì„ ì‚¬ìš©í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrVariableSteerMax")) {
     QObject::connect(this, &VariableSteerMaxToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrVariableSteerMax", &value, 1);
@@ -195,7 +195,7 @@ class VariableSteerDeltaToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  VariableSteerDeltaToggle() : ToggleControl("°¡º¯ SteerDelta »ç¿ë", "°î·ü¿¡ µû¸¥ °¡º¯ SteerDelta¸¦ »ç¿ëÇÕ´Ï´Ù.( DeltaUp ~ 5±îÁö º¯È­, DeltaDown ~ 10±îÁö º¯È­", "../assets/offroad/icon_shell.png", Params().getBool("OpkrVariableSteerDelta")) {
+  VariableSteerDeltaToggle() : ToggleControl("ê°€ë³€ SteerDelta ì‚¬ìš©", "ê³¡ë¥ ì— ë”°ë¥¸ ê°€ë³€ SteerDeltaë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.( DeltaUp ~ 5ê¹Œì§€ ë³€í™”, DeltaDown ~ 10ê¹Œì§€ ë³€í™”", "../assets/offroad/icon_shell.png", Params().getBool("OpkrVariableSteerDelta")) {
     QObject::connect(this, &VariableSteerDeltaToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrVariableSteerDelta", &value, 1);
@@ -207,7 +207,7 @@ class LiveTuneToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  LiveTuneToggle() : ToggleControl("¶óÀÌºê Æ©³Ê »ç¿ë", "ÀÌ ¿É¼ÇÀ» ÄÑ¸é Á¦¾î°ªÀÌ ½Ç½Ã°£À¸·Î Àû¿ëµË´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrLiveTune")) {
+  LiveTuneToggle() : ToggleControl("ë¼ì´ë¸Œ íŠœë„ˆ ì‚¬ìš©", "ì´ ì˜µì…˜ì„ ì¼œë©´ ì œì–´ê°’ì´ ì‹¤ì‹œê°„ìœ¼ë¡œ ì ìš©ë©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrLiveTune")) {
     QObject::connect(this, &LiveTuneToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrLiveTune", &value, 1);
@@ -219,7 +219,7 @@ class ShaneFeedForward : public ToggleControl {
   Q_OBJECT
 
 public:
-  ShaneFeedForward() : ToggleControl("Shane FeedForward »ç¿ë", "ShaneÀÇ FeedForward¸¦ »ç¿ëÇÕ´Ï´Ù. Á¶Çâ°¢¿¡ µû¶ó Á÷¼±ÁÖ·Î¿¡¼­´Â ÅäÅ©¸¦ ³·Ãß°í, °î¼±ÁÖ·Î¿¡¼­´Â µ¿ÀûÀ¸·Î Á¶Á¤ÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("ShaneFeedForward")) {
+  ShaneFeedForward() : ToggleControl("Shane FeedForward ì‚¬ìš©", "Shaneì˜ FeedForwardë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤. ì¡°í–¥ê°ì— ë”°ë¼ ì§ì„ ì£¼ë¡œì—ì„œëŠ” í† í¬ë¥¼ ë‚®ì¶”ê³ , ê³¡ì„ ì£¼ë¡œì—ì„œëŠ” ë™ì ìœ¼ë¡œ ì¡°ì •í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("ShaneFeedForward")) {
     QObject::connect(this, &ShaneFeedForward::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("ShaneFeedForward", &value, 1);
@@ -231,7 +231,7 @@ class DrivingRecordToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  DrivingRecordToggle() : ToggleControl("ÀÚµ¿ È­¸é³ìÈ­ ±â´É »ç¿ë", "¿îÀü Áß È­¸é ³ìÈ­/ÁßÁö¸¦ ÀÚµ¿À¸·Î ¼öÇàÇÕ´Ï´Ù. Ãâ¹ß ÈÄ ³ìÈ­°¡ ½ÃÀÛµÇ¸ç Â÷·®ÀÌ Á¤ÁöÇÏ¸é ³ìÈ­°¡ Á¾·áµË´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrDrivingRecord")) {
+  DrivingRecordToggle() : ToggleControl("ìë™ í™”ë©´ë…¹í™” ê¸°ëŠ¥ ì‚¬ìš©", "ìš´ì „ ì¤‘ í™”ë©´ ë…¹í™”/ì¤‘ì§€ë¥¼ ìë™ìœ¼ë¡œ ìˆ˜í–‰í•©ë‹ˆë‹¤. ì¶œë°œ í›„ ë…¹í™”ê°€ ì‹œì‘ë˜ë©° ì°¨ëŸ‰ì´ ì •ì§€í•˜ë©´ ë…¹í™”ê°€ ì¢…ë£Œë©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrDrivingRecord")) {
     QObject::connect(this, &DrivingRecordToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrDrivingRecord", &value, 1);
@@ -243,7 +243,7 @@ class TurnSteeringDisableToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  TurnSteeringDisableToggle() : ToggleControl("ÅÏ½Ã±×³Î »ç¿ë½Ã Á¶ÇâÇØÁ¦ »ç¿ë", "Â÷¼±º¯°æ¼Óµµ ÀÌÇÏ·Î ÁÖÇàÇÒ ¶§ ÅÏ½Ã±×³ÎÀ» »ç¿ë½Ã ÀÚµ¿Á¶ÇâÀ» ÀÏ½ÃÇØÁ¦ ÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrTurnSteeringDisable")) {
+  TurnSteeringDisableToggle() : ToggleControl("í„´ì‹œê·¸ë„ ì‚¬ìš©ì‹œ ì¡°í–¥í•´ì œ ì‚¬ìš©", "ì°¨ì„ ë³€ê²½ì†ë„ ì´í•˜ë¡œ ì£¼í–‰í•  ë•Œ í„´ì‹œê·¸ë„ì„ ì‚¬ìš©ì‹œ ìë™ì¡°í–¥ì„ ì¼ì‹œí•´ì œ í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrTurnSteeringDisable")) {
     QObject::connect(this, &TurnSteeringDisableToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrTurnSteeringDisable", &value, 1);
@@ -255,7 +255,7 @@ class HotspotOnBootToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  HotspotOnBootToggle() : ToggleControl("ºÎÆÃ½Ã ÇÖ½ºÆÌ ÀÚµ¿½ÇÇà", "ºÎÆÃ ÈÄ ÇÖ½ºÆÌÀ» ÀÚµ¿À¸·Î ½ÇÇàÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrHotspotOnBoot")) {
+  HotspotOnBootToggle() : ToggleControl("ë¶€íŒ…ì‹œ í•«ìŠ¤íŒŸ ìë™ì‹¤í–‰", "ë¶€íŒ… í›„ í•«ìŠ¤íŒŸì„ ìë™ìœ¼ë¡œ ì‹¤í–‰í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("OpkrHotspotOnBoot")) {
     QObject::connect(this, &HotspotOnBootToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("OpkrHotspotOnBoot", &value, 1);
@@ -267,7 +267,7 @@ class CruiseOverMaxSpeedToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  CruiseOverMaxSpeedToggle() : ToggleControl("¼³Á¤¼Óµµ¸¦ ÃÊ°ú¼Óµµ¿¡ µ¿±âÈ­", "ÇöÀç¼Óµµ°¡ ¼³Á¤¼Óµµ¸¦ ³Ñ¾î¼³ °æ¿ì ¼³Á¤¼Óµµ¸¦ ÇöÀç¼Óµµ¿¡ µ¿±âÈ­ÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("CruiseOverMaxSpeed")) {
+  CruiseOverMaxSpeedToggle() : ToggleControl("ì„¤ì •ì†ë„ë¥¼ ì´ˆê³¼ì†ë„ì— ë™ê¸°í™”", "í˜„ì¬ì†ë„ê°€ ì„¤ì •ì†ë„ë¥¼ ë„˜ì–´ì„¤ ê²½ìš° ì„¤ì •ì†ë„ë¥¼ í˜„ì¬ì†ë„ì— ë™ê¸°í™”í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("CruiseOverMaxSpeed")) {
     QObject::connect(this, &CruiseOverMaxSpeedToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("CruiseOverMaxSpeed", &value, 1);
@@ -303,7 +303,7 @@ class LongLogToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  LongLogToggle() : ToggleControl("LONG LOG Ç¥½Ã", "È­¸é¿¡ °¡º¯Å©·çÁî ·Î±× ´ë½Å ·Õ Æ©´× µğ¹ö±×¿ë ·Î±×¸¦ Ç¥½ÃÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("LongLogDisplay")) {
+  LongLogToggle() : ToggleControl("LONG LOG í‘œì‹œ", "í™”ë©´ì— ê°€ë³€í¬ë£¨ì¦ˆ ë¡œê·¸ ëŒ€ì‹  ë¡± íŠœë‹ ë””ë²„ê·¸ìš© ë¡œê·¸ë¥¼ í‘œì‹œí•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("LongLogDisplay")) {
     QObject::connect(this, &LongLogToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("LongLogDisplay", &value, 1);
@@ -315,7 +315,7 @@ class PrebuiltToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  PrebuiltToggle() : ToggleControl("Prebuilt ÆÄÀÏ »ı¼º", "Prebuilt ÆÄÀÏÀ» »ı¼ºÇÏ¸ç ºÎÆÃ¼Óµµ¸¦ ´ÜÃà½ÃÅµ´Ï´Ù. UI¼öÁ¤À» ÇÑ °æ¿ì ±â´ÉÀ» ²ô½Ê½Ã¿À.", "../assets/offroad/icon_shell.png", Params().getBool("PutPrebuiltOn")) {
+  PrebuiltToggle() : ToggleControl("Prebuilt íŒŒì¼ ìƒì„±", "Prebuilt íŒŒì¼ì„ ìƒì„±í•˜ë©° ë¶€íŒ…ì†ë„ë¥¼ ë‹¨ì¶•ì‹œí‚µë‹ˆë‹¤. UIìˆ˜ì •ì„ í•œ ê²½ìš° ê¸°ëŠ¥ì„ ë„ì‹­ì‹œì˜¤.", "../assets/offroad/icon_shell.png", Params().getBool("PutPrebuiltOn")) {
     QObject::connect(this, &PrebuiltToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("PutPrebuiltOn", &value, 1);
@@ -327,7 +327,7 @@ class LDWSToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  LDWSToggle() : ToggleControl("LDWS Â÷·® ¼³Á¤", "", "../assets/offroad/icon_shell.png", Params().getBool("LdwsCarFix")) {
+  LDWSToggle() : ToggleControl("LDWS ì°¨ëŸ‰ ì„¤ì •", "", "../assets/offroad/icon_shell.png", Params().getBool("LdwsCarFix")) {
     QObject::connect(this, &LDWSToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("LdwsCarFix", &value, 1);
@@ -339,7 +339,7 @@ class FPTwoToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  FPTwoToggle() : ToggleControl("FingerPrint 2.0 ¼³Á¤", "ÇÎ°ÅÇÁ¸°Æ®2.0À» È°¼ºÈ­ ÇÕ´Ï´Ù. ECUÀÎ½ÄÀ¸·Î Â÷·®À» È°¼ºÈ­ ÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("FingerprintTwoSet")) {
+  FPTwoToggle() : ToggleControl("FingerPrint 2.0 ì„¤ì •", "í•‘ê±°í”„ë¦°íŠ¸2.0ì„ í™œì„±í™” í•©ë‹ˆë‹¤. ECUì¸ì‹ìœ¼ë¡œ ì°¨ëŸ‰ì„ í™œì„±í™” í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("FingerprintTwoSet")) {
     QObject::connect(this, &FPTwoToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("FingerprintTwoSet", &value, 1);
@@ -351,7 +351,7 @@ class GearDToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  GearDToggle() : ToggleControl("µå¶óÀÌºê±â¾î °­Á¦ÀÎ½Ä", "±â¾îÀÎ½Ä¹®Á¦·Î ÀÎ°ÔÀÌÁö°¡ µÇÁö ¾ÊÀ» ¶§ »ç¿ëÇÕ´Ï´Ù. ±Ùº»ÀûÀ¸·Î CABANAµ¥ÀÌÅÍ¸¦ ºĞ¼®ÇØ¾ß ÇÏÁö¸¸, ÀÓ½ÃÀûÀ¸·Î ÇØ°áÇÕ´Ï´Ù.", "../assets/offroad/icon_shell.png", Params().getBool("JustDoGearD")) {
+  GearDToggle() : ToggleControl("ë“œë¼ì´ë¸Œê¸°ì–´ ê°•ì œì¸ì‹", "ê¸°ì–´ì¸ì‹ë¬¸ì œë¡œ ì¸ê²Œì´ì§€ê°€ ë˜ì§€ ì•Šì„ ë•Œ ì‚¬ìš©í•©ë‹ˆë‹¤. ê·¼ë³¸ì ìœ¼ë¡œ CABANAë°ì´í„°ë¥¼ ë¶„ì„í•´ì•¼ í•˜ì§€ë§Œ, ì„ì‹œì ìœ¼ë¡œ í•´ê²°í•©ë‹ˆë‹¤.", "../assets/offroad/icon_shell.png", Params().getBool("JustDoGearD")) {
     QObject::connect(this, &GearDToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("JustDoGearD", &value, 1);
@@ -363,7 +363,7 @@ class ComIssueToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  ComIssueToggle() : ToggleControl("ÇÁ·Î¼¼½º°£ Åë½Å¿À·ù ¾Ë¶÷ ²ô±â", "È­ÀÌÆ®ÆÇ´Ù »ç¿ë½Ã ÇÁ·Î¼¼½º°£ Åë½Å¿À·ù ¾Ë¶÷À» ²ô±â À§ÇØ ÀÌ¿É¼ÇÀ» ÄÑ½Ê½Ã¿À.", "../assets/offroad/icon_shell.png", Params().getBool("ComIssueGone")) {
+  ComIssueToggle() : ToggleControl("í”„ë¡œì„¸ìŠ¤ê°„ í†µì‹ ì˜¤ë¥˜ ì•ŒëŒ ë„ê¸°", "í™”ì´íŠ¸íŒë‹¤ ì‚¬ìš©ì‹œ í”„ë¡œì„¸ìŠ¤ê°„ í†µì‹ ì˜¤ë¥˜ ì•ŒëŒì„ ë„ê¸° ìœ„í•´ ì´ì˜µì…˜ì„ ì¼œì‹­ì‹œì˜¤.", "../assets/offroad/icon_shell.png", Params().getBool("ComIssueGone")) {
     QObject::connect(this, &ComIssueToggle::toggleFlipped, [=](int state) {
       char value = state ? '1' : '0';
       Params().put("ComIssueGone", &value, 1);
@@ -400,7 +400,7 @@ private slots:
   void parseResponse();
 };
 
-// ¿ÀÇÂÆÄÀÏ·µ ¹Ì¸®º¸±â
+// ì˜¤í”ˆíŒŒì¼ëŸ¿ ë¯¸ë¦¬ë³´ê¸°
 class OpenpilotView : public AbstractControl {
   Q_OBJECT
 
@@ -414,7 +414,7 @@ private:
   void refresh();
 };
 
-// Â÷·® °­Á¦µî·Ï
+// ì°¨ëŸ‰ ê°•ì œë“±ë¡
 class CarRecognition : public AbstractControl {
   Q_OBJECT
 
@@ -446,7 +446,7 @@ private:
 };
 
 
-// UI ¼³Á¤
+// UI ì„¤ì •
 class AutoShutdown : public AbstractControl {
   Q_OBJECT
 
@@ -537,7 +537,7 @@ private:
 };
 
 
-// ÁÖÇà ¼³Á¤
+// ì£¼í–‰ ì„¤ì •
 class CruisemodeSelInit : public AbstractControl {
   Q_OBJECT
 
@@ -657,7 +657,7 @@ private:
   void refresh();
 };
 
-// Æ©´× ¼³Á¤
+// íŠœë‹ ì„¤ì •
 class CameraOffset : public AbstractControl {
   Q_OBJECT
 
@@ -868,7 +868,7 @@ private:
 };
 
 
-// Á¦¾î ¼³Á¤
+// ì œì–´ ì„¤ì •
 class LateralControl : public AbstractControl {
   Q_OBJECT
 
