@@ -10,7 +10,7 @@ class SshToggle : public ToggleControl {
   Q_OBJECT
 
 public:
-  SshToggle() : ToggleControl("SSH 접속 사", "", "", Hardware::get_ssh_enabled()) {
+  SshToggle() : ToggleControl("SSH 접속 사용", "", "", Hardware::get_ssh_enabled()) {
     QObject::connect(this, &SshToggle::toggleFlipped, [=](bool state) {
       Hardware::set_ssh_enabled(state);
     });
