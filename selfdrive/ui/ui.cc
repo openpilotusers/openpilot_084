@@ -411,7 +411,7 @@ void QUIState::update() {
   update_vision(&ui_state);
   dashcam(&ui_state);
 
-  if (ui_state.scene.started != started_prev || ui_state.sm->frame == 1) {
+  if (ui_state.scene.started != started_prev) {
     started_prev = ui_state.scene.started;
     emit offroadTransition(!ui_state.scene.started);
 
@@ -441,6 +441,8 @@ void Device::setAwake(bool on, bool reset) {
   UIScene  &scene = QUIState::ui_state.scene;
   if (on != awake) {
     awake = on;
+
+    // atom
     if( scene.ignition || !scene.scr.autoScreenOff )
     {
       Hardware::set_display_power(awake);
@@ -466,7 +468,7 @@ void Device::updateBrightness(const UIState &s) {
   if (!awake) {
     brightness = 0;
   }
-  else if( s.scene.scr.brightness )
+  else if( s.scene.scr.brightness )  // atom
   {
     brightness = 255 * (s.scene.scr.brightness * 0.002);
   }
@@ -504,7 +506,7 @@ void Device::updateWakefulness(const UIState &s) {
 void Device::ScreenAwake() 
 {
   UIState &s = QUIState::ui_state;  
-  //const bool draw_alerts = s.scene.started;
+  const bool draw_alerts = s.scene.started;
   const float speed = s.scene.car_state.getVEgo();
 
   if( s.scene.scr.nTime > 0 )
@@ -522,10 +524,10 @@ void Device::ScreenAwake()
   }
 
   int  cur_key = s.scene.scr.awake;
-  //if (draw_alerts && s.scene.alert_size != cereal::ControlsState::AlertSize::NONE) 
-  //{
-  //    cur_key += 1;
-  //}
+  if (draw_alerts && s.scene.controls_state.getAlertSize() != cereal::ControlsState::AlertSize::NONE) 
+  {
+      cur_key += 1;
+  }
 
   // static int  time_disp = 0;
   // time_disp++;

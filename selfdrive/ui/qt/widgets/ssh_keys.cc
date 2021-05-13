@@ -9,6 +9,7 @@
 #include "selfdrive/common/params.h"
 #include "selfdrive/ui/qt/api.h"
 #include "selfdrive/ui/qt/widgets/input.h"
+#include "ui.h"
 
 SshControl::SshControl() : AbstractControl("SSH 키 설정", "경고: 이렇게 하면 GitHub 설정의 모든 공개 키에 대한 SSH 액세스 권한이 부여됩니다. 사용자 이외의 GitHub 사용자 이름을 입력하지 마십시오. 콤마 직원은 절대 GitHub 사용자 이름을 추가하라는 요청을 하지 않습니다.", "") {
 
@@ -32,7 +33,7 @@ SshControl::SshControl() : AbstractControl("SSH 키 설정", "경고: 이렇게 
 
   QObject::connect(&btn, &QPushButton::released, [=]() {
     if (btn.text() == "설정") {
-      username = InputDialog::getText("GitHub 아이디를 입력하세요");
+      QString username = InputDialog::getText("GitHub 아이디를 입력하세요");
       if (username.length() > 0) {
         btn.setText("로딩중");
         btn.setEnabled(false);
@@ -407,7 +408,7 @@ VolumeControl::VolumeControl() : AbstractControl("EON 볼륨 조절(%)", "EON의
     params.put("OpkrUIVolumeBoost", values.toStdString());
     refresh();
     QUIState::ui_state.sound->volume = value * 0.005;
-    QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
+    //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
   });
   
   QObject::connect(&btnplus, &QPushButton::released, [=]() {
@@ -422,7 +423,7 @@ VolumeControl::VolumeControl() : AbstractControl("EON 볼륨 조절(%)", "EON의
     params.put("OpkrUIVolumeBoost", values.toStdString());
     refresh();
     QUIState::ui_state.sound->volume = value * 0.005;
-    QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
+    //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
   });
   refresh();
 }
