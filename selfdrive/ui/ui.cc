@@ -504,7 +504,7 @@ void Device::updateWakefulness(const UIState &s) {
 void Device::ScreenAwake() 
 {
   UIState &s = QUIState::ui_state;  
-  const bool draw_alerts = s.scene.started;
+  //const bool draw_alerts = s.scene.started;
   const float speed = s.scene.car_state.getVEgo();
 
   if( s.scene.scr.nTime > 0 )

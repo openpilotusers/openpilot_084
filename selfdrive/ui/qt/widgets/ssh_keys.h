@@ -371,35 +371,6 @@ public:
   }
 };
 
-// SSH key management widget
-class SshControl : public AbstractControl {
-  Q_OBJECT
-
-public:
-  SshControl();
-
-private:
-  QPushButton btn;
-  QString username;
-  QLabel username_label;
-  Params params;
-  
-  // networking
-  QTimer* networkTimer;
-  QNetworkReply* reply;
-  QNetworkAccessManager* manager;
-
-  void refresh();
-  void getUserKeys(QString username);
-
-signals:
-  void failedResponse(QString errorString);
-
-private slots:
-  void timeout();
-  void parseResponse();
-};
-
 // 오픈파일럿 미리보기
 class OpenpilotView : public AbstractControl {
   Q_OBJECT

@@ -42,8 +42,8 @@ class ConfirmationDialog : public QDialog {
   Q_OBJECT
 
 public:
-  explicit ConfirmationDialog(const QString &prompt_text, const QString &confirm_text = "»Æ¿Œ",
-                              const QString &cancel_text = "√Îº“", QWidget* parent = 0);
+  explicit ConfirmationDialog(const QString &prompt_text, const QString &confirm_text = "ÌôïÏù∏",
+                              const QString &cancel_text = "Ï∑®ÏÜå", QWidget* parent = 0);
   static bool alert(const QString &prompt_text, QWidget *parent = 0);
   static bool confirm(const QString &prompt_text, QWidget *parent = 0);
 
