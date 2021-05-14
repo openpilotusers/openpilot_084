@@ -506,23 +506,23 @@ class CarController():
         self.scc12cnt %= 0xF
         self.scc11cnt += 1
         self.scc11cnt %= 0x10
-        self.fca11supcnt += 1
-        self.fca11supcnt %= 0xF
-        if self.fca11alivecnt == 1:
-          self.fca11inc = 0
-          if self.fca11cnt13 == 3:
-            self.fca11maxcnt = 0x9
-            self.fca11cnt13 = 0
-          else:
-            self.fca11maxcnt = 0xD
-            self.fca11cnt13 += 1
-        else:
-          self.fca11inc += 4
-        self.fca11alivecnt = self.fca11maxcnt - self.fca11inc
+        # self.fca11supcnt += 1
+        # self.fca11supcnt %= 0xF
+        # if self.fca11alivecnt == 1:
+        #   self.fca11inc = 0
+        #   if self.fca11cnt13 == 3:
+        #     self.fca11maxcnt = 0x9
+        #     self.fca11cnt13 = 0
+        #   else:
+        #     self.fca11maxcnt = 0xD
+        #     self.fca11cnt13 += 1
+        # else:
+        #   self.fca11inc += 4
+        # self.fca11alivecnt = self.fca11maxcnt - self.fca11inc
         aReqValue = CS.scc12["aReqValue"]
         if 0 < CS.out.radarDistance < 149:
           if aReqValue > 0.:
-            stock_weight = interp(CS.out.radarDistance, [3., 25.], [0.8, 0.])
+            stock_weight = interp(CS.out.radarDistance, [3., 25.], [0.9, 0.])
           else:
             stock_weight = interp(CS.out.radarDistance, [3., 25.], [1., 0.])
           apply_accel = apply_accel * (1. - stock_weight) + aReqValue * stock_weight
@@ -531,21 +531,21 @@ class CarController():
           can_sends.append(create_scc12(self.packer, apply_accel, enabled, self.scc_live, CS.out.gasPressed, 1, CS.out.stockAeb, CS.scc12))
         else:
           can_sends.append(create_scc12(self.packer, apply_accel, enabled, self.scc_live, CS.out.gasPressed, CS.out.brakePressed, CS.out.stockAeb, CS.scc12))
-        can_sends.append(create_scc14(self.packer, enabled, CS.scc14, CS.out.stockAeb, lead_visible, lead_dist))
-        if CS.CP.fcaBus == -1:
-          can_sends.append(create_fca11(self.packer, CS.fca11, self.fca11alivecnt, self.fca11supcnt))
-      if frame % 20 == 0:
-        can_sends.append(create_scc13(self.packer, CS.scc13))
-        if CS.CP.fcaBus == -1:
-          can_sends.append(create_fca12(self.packer))
-      if frame % 50 == 0:
-        can_sends.append(create_scc42a(self.packer))
+        # can_sends.append(create_scc14(self.packer, enabled, CS.scc14, CS.out.stockAeb, lead_visible, lead_dist))
+        # if CS.CP.fcaBus == -1:
+        #   can_sends.append(create_fca11(self.packer, CS.fca11, self.fca11alivecnt, self.fca11supcnt))
+      # if frame % 20 == 0:
+      #   can_sends.append(create_scc13(self.packer, CS.scc13))
+      #   if CS.CP.fcaBus == -1:
+      #     can_sends.append(create_fca12(self.packer))
+      # if frame % 50 == 0:
+      #   can_sends.append(create_scc42a(self.packer))
     elif CS.CP.sccBus == 2 and self.longcontrol:
       self.counter_init = True
       self.scc12cnt = CS.scc12init["CR_VSM_Alive"]
       self.scc11cnt = CS.scc11init["AliveCounterACC"]
-      self.fca11alivecnt = CS.fca11init["CR_FCA_Alive"]
-      self.fca11supcnt = CS.fca11init["Supplemental_Counter"]
+      # self.fca11alivecnt = CS.fca11init["CR_FCA_Alive"]
+      # self.fca11supcnt = CS.fca11init["Supplemental_Counter"]
 
     # 20 Hz LFA MFA message
     if frame % 5 == 0 and self.car_fingerprint in FEATURES["send_lfahda_mfa"]:
