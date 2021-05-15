@@ -44,18 +44,21 @@ Sidebar::Sidebar(QWidget *parent) : QFrame(parent) {
 
 void Sidebar::mousePressEvent(QMouseEvent *event) {
   if (settings_btn.contains(event->pos())) {
-    emit openSettings();
+    QUIState::ui_state.scene.setbtn_count = QUIState::ui_state.scene.setbtn_count + 1;
+    if (QUIState::ui_state.scene.setbtn_count > 1) {
+      emit openSettings();
+    }
   }
 }
 
 void Sidebar::update(const UIState &s) {
   if (s.sm->frame % (6*UI_FREQ) == 0) {
-    connect_str = "OFFLINE";
+    connect_str = "오프라인";
     connect_status = warning_color;
     auto last_ping = params.get<float>("LastAthenaPingTime");
     if (last_ping) {
       bool online = nanos_since_boot() - *last_ping < 70e9;
-      connect_str = online ? "ONLINE" : "ERROR";
+      connect_str = online ? "온라인" : "오류";
       connect_status = online ? good_color : danger_color;
     }
     repaint();
@@ -73,17 +76,23 @@ void Sidebar::update(const UIState &s) {
   }
   temp_val = (int)s.scene.deviceState.getAmbientTempC();
 
-  panda_str = "VEHICLE\nONLINE";
+  panda_str = "차량\n연결됨";
   panda_status = good_color;
   if (s.scene.pandaType == cereal::PandaState::PandaType::UNKNOWN) {
     panda_status = danger_color;
-    panda_str = "NO\nPANDA";
+    panda_str = "차량\n연결안됨";
+  } else if (s.scene.satelliteCount > 0) {
+  	panda_str = QString("차량연결됨\nSAT : %1").arg(s.scene.satelliteCount);
   } else if (Hardware::TICI() && s.scene.started) {
     panda_str = QString("SAT CNT\n%1").arg(s.scene.satelliteCount);
     panda_status = s.scene.gpsOK ? good_color : warning_color;
   }
 
   if (s.sm->updated("deviceState") || s.sm->updated("pandaState")) {
+    // atom
+    m_battery_img = s.scene.deviceState.getBatteryStatus() == "Charging" ? 1 : 0;
+    m_batteryPercent = s.scene.deviceState.getBatteryPercent();
+    m_strip = s.scene.deviceState.getWifiIpAddress();
     repaint();
   }
 }
@@ -103,11 +112,32 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   p.drawImage(58, 196, signal_imgs[strength]);
   configFont(p, "Open Sans", 35, "Regular");
   p.setPen(QColor(0xff, 0xff, 0xff));
-  const QRect r = QRect(50, 247, 100, 50);
+  const QRect r = QRect(50, 237, 100, 50);
   p.drawText(r, Qt::AlignCenter, network_type[net_type]);
 
   // metrics
-  drawMetric(p, "TEMP", QString("%1°C").arg(temp_val), temp_status, 338);
+  drawMetric(p, "시스템온도", QString("%1°C").arg(temp_val), temp_status, 338);
   drawMetric(p, panda_str, "", panda_status, 518);
-  drawMetric(p, "CONNECT\n" + connect_str, "", connect_status, 676);
+  drawMetric(p, "네트워크\n" + connect_str, "", connect_status, 676);
+
+  // atom - ip
+  if( m_batteryPercent <= 1) return;
+  QString  strip = m_strip.c_str();
+  const QRect r2 = QRect(50, 295, 200, 50);
+  configFont(p, "Open Sans", 28, "Regular");
+  p.drawText(r2, Qt::AlignLeft, strip);
+
+  // atom - battery
+  QRect  rect(160, 247, 76, 36);
+  QRect  bq(rect.left() + 6, rect.top() + 5, int((rect.width() - 19) * m_batteryPercent * 0.01), rect.height() - 11 );
+  QBrush bgBrush("#149948");
+  p.fillRect(bq, bgBrush);  
+  p.drawImage(rect, battery_imgs[m_battery_img]);
+
+  p.setPen(Qt::white);
+  configFont(p, "Open Sans", 25, "Regular");
+
+  char temp_value_str1[32];
+  snprintf(temp_value_str1, sizeof(temp_value_str1), "%d", m_batteryPercent );
+  p.drawText(rect, Qt::AlignCenter, temp_value_str1);
 }

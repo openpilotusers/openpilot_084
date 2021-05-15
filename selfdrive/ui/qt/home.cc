@@ -57,14 +57,6 @@ void HomeWindow::mousePressEvent(QMouseEvent* e) {
     QUIState::ui_state.scene.driver_view = false;
     return;
   }
-  // OPKR Settings button double click
-  if (sidebar->isVisible() && settings_btn.ptInRect(e->x(), e->y())) {
-    QUIState::ui_state.scene.setbtn_count = QUIState::ui_state.scene.setbtn_count + 1;
-    if (QUIState::ui_state.scene.setbtn_count > 1) {
-      emit openSettings();
-    }
-    return;
-  }
   // OPKR home button double click
   if (sidebar->isVisible() && QUIState::ui_state.scene.car_state.getVEgo() < 0.5 && home_btn.ptInRect(e->x(), e->y())) {
     QUIState::ui_state.scene.homebtn_count = QUIState::ui_state.scene.homebtn_count + 1;

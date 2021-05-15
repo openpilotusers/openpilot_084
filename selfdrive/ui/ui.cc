@@ -231,8 +231,6 @@ static void update_state(UIState *s) {
     s->scene.cpuPerc = scene.deviceState.getCpuUsagePercent();
     s->scene.cpuTemp = scene.deviceState.getCpuTempC()[0];
     s->scene.fanSpeed = scene.deviceState.getFanSpeedPercentDesired();
-    auto data = sm["deviceState"].getDeviceState();
-    snprintf(scene.ipAddr, sizeof(scene.ipAddr), "%s", data.getIpAddr().cStr());
   }
   if (sm.updated("pandaState")) {
     auto pandaState = sm["pandaState"].getPandaState();

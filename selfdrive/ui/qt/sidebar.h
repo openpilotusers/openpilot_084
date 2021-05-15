@@ -46,12 +46,23 @@ private:
   const QColor danger_color = QColor(201, 34, 49);
 
   Params params;
-  QString connect_str = "OFFLINE";
+  QString connect_str = "오프라인";
   QColor connect_status = warning_color;
-  QString panda_str = "NO\nPANDA";
+  QString panda_str = "차량\n연결안됨";
   QColor panda_status = warning_color;
   int temp_val = 0;
   QColor temp_status = warning_color;
   cereal::DeviceState::NetworkType net_type;
   cereal::DeviceState::NetworkStrength strength;
+
+
+  // atom
+  const QMap<int, QImage> battery_imgs = {
+    {0, QImage("../assets/images/battery.png")},
+    {1, QImage("../assets/images/battery_charging.png")},
+  };  
+
+  int    m_batteryPercent = 0;
+  int    m_battery_img;  
+  std::string m_strip;
 };
