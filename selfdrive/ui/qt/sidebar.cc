@@ -131,7 +131,7 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   // atom - ip
   if( m_batteryPercent <= 1) return;
   QString  strip = m_strip.c_str();
-  const QRect r2 = QRect(30, 295, 230, 50);
+  const QRect r2 = QRect(35, 295, 230, 50);
   configFont(p, "Open Sans", 28, "Bold");
   p.setPen(Qt::yellow);
   p.drawText(r2, Qt::AlignHCenter, strip);
