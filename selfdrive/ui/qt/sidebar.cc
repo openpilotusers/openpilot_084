@@ -123,10 +123,10 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   // atom - ip
   if( m_batteryPercent <= 1) return;
   QString  strip = m_strip.c_str();
-  const QRect r2 = QRect(50, 295, 200, 50);
+  const QRect r2 = QRect(50, 295, 230, 50);
   configFont(p, "Open Sans", 28, "Bold");
   p.setPen(Qt::yellow);
-  p.drawText(r2, Qt::AlignLeft, strip);
+  p.drawText(r2, Qt::AlignCenter, strip);
 
   // atom - battery
   QRect  rect(160, 247, 76, 36);
@@ -139,6 +139,6 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   configFont(p, "Open Sans", 25, "Regular");
 
   char temp_value_str1[32];
-  snprintf(temp_value_str1, sizeof(temp_value_str1), "%d", m_batteryPercent );
+  snprintf(temp_value_str1, sizeof(temp_value_str1), "%d%", m_batteryPercent );
   p.drawText(rect, Qt::AlignCenter, temp_value_str1);
 }
