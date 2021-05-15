@@ -534,12 +534,12 @@ class CarController():
         can_sends.append(create_scc14(self.packer, enabled, CS.scc14, CS.out.stockAeb, lead_visible, lead_dist))
         if CS.CP.fcaBus == -1:
           can_sends.append(create_fca11(self.packer, CS.fca11, self.fca11alivecnt, self.fca11supcnt))
-      # if frame % 20 == 0:
-      #   can_sends.append(create_scc13(self.packer, CS.scc13))
-      #   if CS.CP.fcaBus == -1:
-      #     can_sends.append(create_fca12(self.packer))
-      # if frame % 50 == 0:
-      #   can_sends.append(create_scc42a(self.packer))
+      if frame % 20 == 0:
+        can_sends.append(create_scc13(self.packer, CS.scc13))
+        if CS.CP.fcaBus == -1:
+          can_sends.append(create_fca12(self.packer))
+      if frame % 50 == 0:
+        can_sends.append(create_scc42a(self.packer))
     elif CS.CP.sccBus == 2 and self.longcontrol:
       self.counter_init = True
       self.scc12cnt = CS.scc12init["CR_VSM_Alive"]
