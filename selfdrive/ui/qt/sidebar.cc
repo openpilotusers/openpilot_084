@@ -139,6 +139,6 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   configFont(p, "Open Sans", 25, "Regular");
 
   char temp_value_str1[32];
-  snprintf(temp_value_str1, sizeof(temp_value_str1), "%d%", m_batteryPercent );
+  snprintf(temp_value_str1, sizeof(temp_value_str1), "%d%%", m_batteryPercent );
   p.drawText(rect, Qt::AlignCenter, temp_value_str1);
 }
