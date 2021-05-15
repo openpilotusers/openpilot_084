@@ -5,6 +5,8 @@
 #include "selfdrive/hardware/hw.h"
 #include "selfdrive/ui/qt/util.h"
 
+#include <QProcess>
+
 void Sidebar::drawMetric(QPainter &p, const QString &label, const QString &val, QColor c, int y) {
   const QRect rect = {30, y, 240, val.isEmpty() ? (label.contains("\n") ? 124 : 100) : 148};
 
@@ -47,6 +49,12 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
     QUIState::ui_state.scene.setbtn_count = QUIState::ui_state.scene.setbtn_count + 1;
     if (QUIState::ui_state.scene.setbtn_count > 1) {
       emit openSettings();
+    }
+  }
+  if (home_btn.contains(event->pos())) {
+      QUIState::ui_state.scene.homebtn_count = QUIState::ui_state.scene.homebtn_count + 1;
+    if (QUIState::ui_state.scene.homebtn_count > 1) {
+      QProcess::execute("/data/openpilot/run_mixplorer.sh");
     }
   }
 }
@@ -123,10 +131,10 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   // atom - ip
   if( m_batteryPercent <= 1) return;
   QString  strip = m_strip.c_str();
-  const QRect r2 = QRect(50, 295, 230, 50);
+  const QRect r2 = QRect(30, 295, 230, 50);
   configFont(p, "Open Sans", 28, "Bold");
   p.setPen(Qt::yellow);
-  p.drawText(r2, Qt::AlignCenter, strip);
+  p.drawText(r2, Qt::AlignHCenter, strip);
 
   // atom - battery
   QRect  rect(160, 247, 76, 36);
