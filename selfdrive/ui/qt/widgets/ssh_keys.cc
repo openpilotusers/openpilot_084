@@ -407,7 +407,7 @@ VolumeControl::VolumeControl() : AbstractControl("EON 볼륨 조절(%)", "EON의
     QUIState::ui_state.scene.scr.nVolumeBoost = value;
     params.put("OpkrUIVolumeBoost", values.toStdString());
     refresh();
-    QUIState::ui_state.sound->volume = value * 0.005;
+    //QUIState::ui_state.sound->volume = value * 0.005;
     //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
   });
   
@@ -422,7 +422,7 @@ VolumeControl::VolumeControl() : AbstractControl("EON 볼륨 조절(%)", "EON의
     QUIState::ui_state.scene.scr.nVolumeBoost = value;
     params.put("OpkrUIVolumeBoost", values.toStdString());
     refresh();
-    QUIState::ui_state.sound->volume = value * 0.005;
+    //QUIState::ui_state.sound->volume = value * 0.005;
     //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
   });
   refresh();
