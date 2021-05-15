@@ -125,6 +125,7 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   QString  strip = m_strip.c_str();
   const QRect r2 = QRect(50, 295, 200, 50);
   configFont(p, "Open Sans", 28, "Bold");
+  p.setPen(Qt::yellow);
   p.drawText(r2, Qt::AlignLeft, strip);
 
   // atom - battery
