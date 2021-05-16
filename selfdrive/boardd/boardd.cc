@@ -158,8 +158,6 @@ bool usb_connect() {
   if (auto serial = tmp_panda->get_serial(); serial) {
     params.put("PandaDongleId", serial->c_str(), serial->length());
     LOGW("panda serial: %s", serial->c_str());
-
-    delete[] serial_buf;
   } else { return false; }
 
   // power on charging, only the first time. Panda can also change mode and it causes a brief disconneciton
