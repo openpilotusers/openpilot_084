@@ -367,6 +367,7 @@ static void update_status(UIState *s) {
       s->scene.scr.nTime = s->scene.scr.autoScreenOff * 60 * UI_FREQ;
       s->scene.comma_stock_ui = Params().getBool("CommaStockUI");
       Params().put("ModelLongEnabled", "0", 1);
+      Params().put("OpkrMapEnable", "0", 1);
     } else {
       s->vipc_client->connected = false;
     }

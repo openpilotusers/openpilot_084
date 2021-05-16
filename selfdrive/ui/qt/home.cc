@@ -69,6 +69,7 @@ void HomeWindow::mousePressEvent(QMouseEvent* e) {
     //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
     QProcess::execute("am start --activity-task-on-home com.skt.tmap.ku/com.skt.tmap.activity.TmapNaviActivity");
     QUIState::ui_state.scene.map_on_top = true;
+    Params().put("OpkrMapEnable", "1", 1);
     return;
   }
   // OPKR REC
