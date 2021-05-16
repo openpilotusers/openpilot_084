@@ -127,7 +127,7 @@ class Planner():
     self.target_speed_map_dist = 0
     self.target_speed_map_block = False
     self.target_speed_map_sign = False
-    self.tartget_speed_offset = int(self.params.get("OpkrSpeedLimitOffset"))
+    self.tartget_speed_offset = int(self.params.get("OpkrSpeedLimitOffset", encoding="utf8"))
     self.vego = 0
 
   def choose_solution(self, v_cruise_setpoint, enabled, model_enabled):

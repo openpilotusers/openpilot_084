@@ -88,7 +88,7 @@ def set_eon_fan(val):
     bus.close()
     last_eon_fan_val = val
 
-fanSpeedGain = int(Params().get('OpkrFanSpeedGain'))
+fanSpeedGain = int(Params().get("OpkrFanSpeedGain", encoding="utf8"))
 # temp thresholds to control fan speed - high hysteresis
 _TEMP_THRS_H = [50., 65., 80., 10000]
 # temp thresholds to control fan speed - low hysteresis
@@ -128,9 +128,9 @@ def handle_fan_uno(max_cpu_temp, bat_temp, fan_speed, ignition):
   return new_speed
 
 def check_car_battery_voltage(should_start, pandaState, charging_disabled, msg):
-  battery_charging_control = Params().get_bool('OpkrBatteryChargingControl')
-  battery_charging_min = int(Params().get('OpkrBatteryChargingMin'))
-  battery_charging_max = int(Params().get('OpkrBatteryChargingMax'))
+  battery_charging_control = Params().get_bool("OpkrBatteryChargingControl")
+  battery_charging_min = int(Params().get("OpkrBatteryChargingMin", encoding="utf8")) if Params().get("OpkrBatteryChargingMin", encoding="utf8") is not None else 70
+  battery_charging_max = int(Params().get("OpkrBatteryChargingMax", encoding="utf8")) if Params().get("OpkrBatteryChargingMax", encoding="utf8") is not None else 80
 
   # charging disallowed if:
   #   - there are pandaState packets from panda, and;
@@ -232,25 +232,25 @@ def thermald_thread():
   hotspot_on_boot = params.get_bool("OpkrHotspotOnBoot")
   hotspot_run = False
 
-  if int(params.get('OpkrAutoShutdown')) == 0:
+  if int(params.get("OpkrAutoShutdown", encoding="utf8")) == 0:
     opkrAutoShutdown = 0
-  elif int(params.get('OpkrAutoShutdown')) == 1:
+  elif int(params.get("OpkrAutoShutdown", encoding="utf8")) == 1:
     opkrAutoShutdown = 5
-  elif int(params.get('OpkrAutoShutdown')) == 2:
+  elif int(params.get("OpkrAutoShutdown", encoding="utf8")) == 2:
     opkrAutoShutdown = 30
-  elif int(params.get('OpkrAutoShutdown')) == 3:
+  elif int(params.get("OpkrAutoShutdown", encoding="utf8")) == 3:
     opkrAutoShutdown = 60
-  elif int(params.get('OpkrAutoShutdown')) == 4:
+  elif int(params.get("OpkrAutoShutdown", encoding="utf8")) == 4:
     opkrAutoShutdown = 180
-  elif int(params.get('OpkrAutoShutdown')) == 5:
+  elif int(params.get("OpkrAutoShutdown", encoding="utf8")) == 5:
     opkrAutoShutdown = 300
-  elif int(params.get('OpkrAutoShutdown')) == 6:
+  elif int(params.get("OpkrAutoShutdown", encoding="utf8")) == 6:
     opkrAutoShutdown = 600
-  elif int(params.get('OpkrAutoShutdown')) == 7:
+  elif int(params.get("OpkrAutoShutdown", encoding="utf8")) == 7:
     opkrAutoShutdown = 1800
-  elif int(params.get('OpkrAutoShutdown')) == 8:
+  elif int(params.get("OpkrAutoShutdown", encoding="utf8")) == 8:
     opkrAutoShutdown = 3600
-  elif int(params.get('OpkrAutoShutdown')) == 9:
+  elif int(params.get("OpkrAutoShutdown", encoding="utf8")) == 9:
     opkrAutoShutdown = 10800
   else:
     opkrAutoShutdown = 18000

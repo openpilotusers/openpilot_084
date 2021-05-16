@@ -2,7 +2,6 @@
 #partially modified by opkr
 import os
 import math
-import numpy as np
 from cereal import car, log
 from common.params import Params
 
@@ -31,7 +30,7 @@ class SpdctrlLong(SpdController):
         self.target_speed_map_counter1 = 0
         self.target_speed_map_counter2 = 0
         self.map_decel_only = False
-        self.map_spdlimit_offset = int(Params().get("OpkrSpeedLimitOffset"))
+        self.map_spdlimit_offset = int(Params().get("OpkrSpeedLimitOffset", encoding="utf8"))
 
     def update_lead(self, sm, CS, dRel, yRel, vRel, CC):
 
