@@ -37,7 +37,7 @@
 #define SATURATE_IL 1600
 #define NIBBLE_TO_HEX(n) ((n) < 10 ? (n) + '0' : ((n) - 10) + 'a')
 
-Panda * panda = NULL;
+Panda * panda = nullptr;
 std::atomic<bool> safety_setter_thread_running(false);
 std::atomic<bool> ignition(false);
 volatile sig_atomic_t do_exit = 0;
@@ -121,9 +121,12 @@ void safety_setter_thread() {
 
 
 bool usb_connect() {
+  static bool connected_once = false;
+
+  std::unique_ptr<Panda> tmp_panda;
   try {
-    assert(panda == NULL);
-    panda = new Panda();
+    assert(panda == nullptr);
+    tmp_panda = std::make_unique<Panda>();
   } catch (std::exception &e) {
     return false;
   }
@@ -131,10 +134,10 @@ bool usb_connect() {
   Params params = Params();
 
   if (getenv("BOARDD_LOOPBACK")) {
-    panda->set_loopback(true);
+    tmp_panda->set_loopback(true);
   }
 
-  if (auto fw_sig = panda->get_firmware_version(); fw_sig) {
+  if (auto fw_sig = tmp_panda->get_firmware_version(); fw_sig) {
     params.put("PandaFirmware", (const char *)fw_sig->data(), fw_sig->size());
 
     // Convert to hex for offroad
@@ -152,7 +155,7 @@ bool usb_connect() {
   } else { return false; }
 
   // get panda serial
-  if (auto serial = panda->get_serial(); serial) {
+  if (auto serial = tmp_panda->get_serial(); serial) {
     params.put("PandaDongleId", serial->c_str(), serial->length());
     LOGW("panda serial: %s", serial->c_str());
 
@@ -162,14 +165,14 @@ bool usb_connect() {
   // power on charging, only the first time. Panda can also change mode and it causes a brief disconneciton
 #ifndef __x86_64__
   if (!connected_once) {
-    panda->set_usb_power_mode(cereal::PandaState::UsbPowerMode::CDP);
+    tmp_panda->set_usb_power_mode(cereal::PandaState::UsbPowerMode::CDP);
   }
 #endif
 
-  if (panda->has_rtc){
+  if (tmp_panda->has_rtc){
     setenv("TZ","UTC",1);
     struct tm sys_time = get_time();
-    struct tm rtc_time = panda->get_rtc();
+    struct tm rtc_time = tmp_panda->get_rtc();
 
     if (!time_valid(sys_time) && time_valid(rtc_time)) {
       LOGE("System time wrong, setting from RTC. "
@@ -185,6 +188,7 @@ bool usb_connect() {
   }
 
   connected_once = true;
+  panda = tmp_panda.release();
   return true;
 }
 
@@ -498,7 +502,6 @@ void pigeon_thread() {
   };
 
   while (!do_exit && panda->connected) {
-    std::string recv = pigeon->receive();
     bool need_reset = false;
     std::string recv = pigeon->receive();
 
@@ -595,6 +598,6 @@ int main() {
     for (auto &t : threads) t.join();
 
     delete panda;
-    panda = NULL;
+    panda = nullptr;
   }
 }
