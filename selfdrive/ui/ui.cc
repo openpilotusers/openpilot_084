@@ -368,6 +368,8 @@ static void update_status(UIState *s) {
       s->scene.comma_stock_ui = Params().getBool("CommaStockUI");
       Params().put("ModelLongEnabled", "0", 1);
       Params().put("OpkrMapEnable", "0", 1);
+      Params().put("LimitSetSpeedCamera", "0", 1);
+      Params().put("LimitSetSpeedCameraDist", "0", 1);
     } else {
       s->vipc_client->connected = false;
     }
