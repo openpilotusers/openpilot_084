@@ -41,9 +41,14 @@ void OnroadAlerts::updateState(const UIState &s) {
   SubMaster &sm = *(s.sm);
   if (sm.updated("carState")) {
     // scale volume with speed
-    volume = 0.0
-    // volume = util::map_val(sm["carState"].getCarState().getVEgo(), 0.f, 20.f,
-    //                        Hardware::MIN_VOLUME, Hardware::MAX_VOLUME);
+    if (QUIState::ui_state.scene.scr.nVolumeBoost < 0) {
+      volume = 0.0;
+    } else if (QUIState::ui_state.scene.scr.nVolumeBoost > 0) {
+      volume = QUIState::ui_state.scene.scr.nVolumeBoost * 0.01;
+    } else {
+      volume = util::map_val(sm["carState"].getCarState().getVEgo(), 0.f, 20.f,
+                           Hardware::MIN_VOLUME, Hardware::MAX_VOLUME);
+    }
   }
   if (s.scene.deviceState.getStarted()) {
     if (sm.updated("controlsState")) {
