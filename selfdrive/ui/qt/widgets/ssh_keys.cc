@@ -5,6 +5,7 @@
 #include <QProcess>
 #include <QAction>
 #include <QMenu>
+#include <QSoundEffect>
 
 #include "selfdrive/common/params.h"
 #include "selfdrive/ui/qt/api.h"
@@ -400,15 +401,22 @@ VolumeControl::VolumeControl() : AbstractControl("EON 볼륨 조절(%)", "EON의
     auto str = QString::fromStdString(params.get("OpkrUIVolumeBoost"));
     int value = str.toInt();
     value = value - 10;
-    if (value <= 0 ) {
-      value = 0;
+    if (value <= -10 ) {
+      value = -10;
     }
     QString values = QString::number(value);
     QUIState::ui_state.scene.scr.nVolumeBoost = value;
     params.put("OpkrUIVolumeBoost", values.toStdString());
     refresh();
-    //QUIState::ui_state.sound->volume = value * 0.005;
-    //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
+    QSoundEffect effect1;
+    effect1.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
+    if (value > 0 ) {
+      effect1.setVolume(value * 0.01);
+      effect1.play();
+    } else if (value == 0) {
+      effect1.setVolume(0.5);
+      effect1.play();
+    }
   });
   
   QObject::connect(&btnplus, &QPushButton::released, [=]() {
@@ -422,8 +430,15 @@ VolumeControl::VolumeControl() : AbstractControl("EON 볼륨 조절(%)", "EON의
     QUIState::ui_state.scene.scr.nVolumeBoost = value;
     params.put("OpkrUIVolumeBoost", values.toStdString());
     refresh();
-    //QUIState::ui_state.sound->volume = value * 0.005;
-    //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
+    QSoundEffect effect2;
+    effect2.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
+    if (value > 0 ) {
+      effect2.setVolume(value * 0.01);
+      effect2.play();
+    } else if (value == 0) {
+      effect2.setVolume(0.5);
+      effect2.play();
+    }
   });
   refresh();
 }
@@ -432,6 +447,8 @@ void VolumeControl::refresh() {
   QString option = QString::fromStdString(params.get("OpkrUIVolumeBoost"));
   if (option == "0") {
     label.setText(QString::fromStdString("기본값"));
+  } else if (option == "-10") {
+    label.setText(QString::fromStdString("음소거"));
   } else {
     label.setText(QString::fromStdString(params.get("OpkrUIVolumeBoost")));
   }

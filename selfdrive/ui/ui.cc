@@ -364,6 +364,7 @@ static void update_status(UIState *s) {
       s->scene.monitoring_mode = std::stoi(Params().get("OpkrMonitoringMode"));
       s->scene.scr.autoScreenOff = std::stoi(Params().get("OpkrAutoScreenOff"));
       s->scene.scr.brightness = std::stoi(Params().get("OpkrUIBrightness"));
+      s->scene.scr.nVolumeBoost = std::stoi(Params().get("OpkrUIVolumeBoost"));
       s->scene.scr.nTime = s->scene.scr.autoScreenOff * 60 * UI_FREQ;
       s->scene.comma_stock_ui = Params().getBool("CommaStockUI");
       Params().put("ModelLongEnabled", "0", 1);
