@@ -50,12 +50,22 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
     if (QUIState::ui_state.scene.setbtn_count > 1) {
       emit openSettings();
     }
+    return;
   }
+  // OPKR 
   if (home_btn.contains(event->pos())) {
       QUIState::ui_state.scene.homebtn_count = QUIState::ui_state.scene.homebtn_count + 1;
     if (QUIState::ui_state.scene.homebtn_count > 1) {
       QProcess::execute("/data/openpilot/run_mixplorer.sh");
     }
+    return;
+  }
+  // OPKR map overlay
+  if (overlay_btn.contains(event->pos()) && QUIState::ui_state.scene.started) {
+    //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
+    QProcess::execute("am start --activity-task-on-home com.opkr.maphack/com.opkr.maphack.MainActivity");
+    QUIState::ui_state.scene.map_on_top = false;
+    QUIState::ui_state.scene.map_on_overlay = !QUIState::ui_state.scene.map_on_overlay;
   }
 }
 
