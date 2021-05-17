@@ -12,6 +12,7 @@
 #include "selfdrive/common/util.h"
 #include "selfdrive/ui/qt/widgets/drive_stats.h"
 #include "selfdrive/ui/qt/widgets/setup.h"
+#include "selfdrive/ui/qt/onroad.h"
 #include "selfdrive/ui/qt/onroad.cc"
 
 // HomeWindow: the container for the offroad and onroad UIs

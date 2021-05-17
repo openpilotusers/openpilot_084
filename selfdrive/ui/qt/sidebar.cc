@@ -4,6 +4,7 @@
 #include "selfdrive/common/util.h"
 #include "selfdrive/hardware/hw.h"
 #include "selfdrive/ui/qt/util.h"
+#include "selfdrive/ui/qt/onroad.h"
 #include "selfdrive/ui/qt/onroad.cc"
 
 #include <QProcess>
