@@ -5,7 +5,7 @@
 #include <QMouseEvent>
 #include <QVBoxLayout>
 #include <QProcess>
-#include <QtMultimedia/QMediaPlayer>
+#include <QSoundEffect>
 
 #include "selfdrive/common/params.h"
 #include "selfdrive/common/swaglog.h"
@@ -39,6 +39,11 @@ HomeWindow::HomeWindow(QWidget* parent) : QWidget(parent) {
   QObject::connect(this, &HomeWindow::openSettings, home, &OffroadHome::refresh);
 
   setLayout(layout);
+
+  QSoundEffect effect;
+  effect.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sound/warning_1.wav"));
+  //effect.setLoopCount(QSoundEffect::Infinite);
+  //effect.setVolume(0.25f);
 }
 
 void HomeWindow::offroadTransition(bool offroad) {
@@ -60,20 +65,14 @@ void HomeWindow::mousePressEvent(QMouseEvent* e) {
   }
   // OPKR add map
   if (QUIState::ui_state.scene.started && map_overlay_btn.ptInRect(e->x(), e->y())) {
-    QMediaPlayer *player1 = new QMediaPlayer;
-    player1->setMedia(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sound/warning_1.wav"));
-    player1->setVolume(50);
-    player1->play();
+    effect.play();
     QProcess::execute("am start --activity-task-on-home com.opkr.maphack/com.opkr.maphack.MainActivity");
     QUIState::ui_state.scene.map_on_top = false;
     QUIState::ui_state.scene.map_on_overlay = !QUIState::ui_state.scene.map_on_overlay;
     return;
   }
   if (QUIState::ui_state.scene.started && !sidebar->isVisible() && !QUIState::ui_state.scene.map_on_top && map_btn.ptInRect(e->x(), e->y())) {
-    QMediaPlayer *player2 = new QMediaPlayer;
-    player2->setMedia(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sound/warning_1.wav"));
-    player2->setVolume(50);
-    player2->play();
+    effect.play();
     QProcess::execute("am start com.skt.tmap.ku/com.skt.tmap.activity.TmapNaviActivity");
     QUIState::ui_state.scene.map_on_top = true;
     Params().put("OpkrMapEnable", "1", 1);
