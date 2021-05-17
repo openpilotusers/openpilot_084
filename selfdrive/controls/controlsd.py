@@ -262,7 +262,7 @@ class Controls:
       self.delayed_comm_issue_timer += 1
       if self.delayed_comm_issue_timer > 200 and not Params().get_bool("OpkrMapEnable"):
         self.events.add(EventName.commIssue)
-      elif self.delayed_comm_issue_timer > 500 and Params().get_bool("OpkrMapEnable"):
+      elif self.delayed_comm_issue_timer > 600 and Params().get_bool("OpkrMapEnable"):
         self.events.add(EventName.commIssue)
       if not self.logged_comm_issue:
         cloudlog.error(f"commIssue - valid: {self.sm.valid} - alive: {self.sm.alive}")
