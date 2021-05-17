@@ -408,15 +408,15 @@ VolumeControl::VolumeControl() : AbstractControl("EON 볼륨 조절(%)", "EON의
     QUIState::ui_state.scene.scr.nVolumeBoost = value;
     params.put("OpkrUIVolumeBoost", values.toStdString());
     refresh();
-    QSoundEffect effect1;
-    effect1.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
-    if (value > 0 ) {
-      effect1.setVolume(value * 0.01);
-      effect1.play();
-    } else if (value == 0) {
-      effect1.setVolume(0.5);
-      effect1.play();
-    }
+    // QSoundEffect effect1;
+    // effect1.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
+    // if (value > 0 ) {
+    //   effect1.setVolume(value * 0.01);
+    //   effect1.play();
+    // } else if (value == 0) {
+    //   effect1.setVolume(0.5);
+    //   effect1.play();
+    // }
   });
   
   QObject::connect(&btnplus, &QPushButton::released, [=]() {
@@ -430,9 +430,15 @@ VolumeControl::VolumeControl() : AbstractControl("EON 볼륨 조절(%)", "EON의
     QUIState::ui_state.scene.scr.nVolumeBoost = value;
     params.put("OpkrUIVolumeBoost", values.toStdString());
     refresh();
-    QSoundEffect effect2;
-    effect2.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
-    effect2.play();
+    // QSoundEffect effect1;
+    // effect1.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
+    // if (value > 0 ) {
+    //   effect1.setVolume(value * 0.01);
+    //   effect1.play();
+    // } else if (value == 0) {
+    //   effect1.setVolume(0.5);
+    //   effect1.play();
+    // }
   });
   refresh();
 }
