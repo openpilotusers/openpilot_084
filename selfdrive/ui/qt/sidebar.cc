@@ -4,10 +4,9 @@
 #include "selfdrive/common/util.h"
 #include "selfdrive/hardware/hw.h"
 #include "selfdrive/ui/qt/util.h"
-#include "selfdrive/ui/qt/onroad.h"
-#include "selfdrive/ui/qt/onroad.cc"
 
 #include <QProcess>
+#include <QtMultimedia/QMediaPlayer>
 
 void Sidebar::drawMetric(QPainter &p, const QString &label, const QString &val, QColor c, int y) {
   const QRect rect = {30, y, 240, val.isEmpty() ? (label.contains("\n") ? 124 : 100) : 148};
@@ -64,7 +63,10 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
   }
   // OPKR map overlay
   if (overlay_btn.contains(event->pos()) && QUIState::ui_state.scene.started) {
-    playSound(AudibleAlert::CHIME_WARNING1);
+    QMediaPlayer *player = new QMediaPlayer;
+    player->setMedia(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sound/warning_1.wav"));
+    player->setVolume(50);
+    player->play();
     QProcess::execute("am start --activity-task-on-home com.opkr.maphack/com.opkr.maphack.MainActivity");
     QUIState::ui_state.scene.map_on_top = false;
     QUIState::ui_state.scene.map_on_overlay = !QUIState::ui_state.scene.map_on_overlay;
