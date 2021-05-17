@@ -61,9 +61,10 @@ void HomeWindow::mousePressEvent(QMouseEvent* e) {
   // OPKR add map
   if (QUIState::ui_state.scene.started && map_overlay_btn.ptInRect(e->x(), e->y())) {
     QSoundEffect effect1;
-    effect1.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sound/warning_1.wav"));
+    effect1.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
+    //effect1.setLoopCount(1);
     //effect1.setLoopCount(QSoundEffect::Infinite);
-    //effect1.setVolume(0.25f);
+    effect1.setVolume(0.5);
     effect1.play();
     QProcess::execute("am start --activity-task-on-home com.opkr.maphack/com.opkr.maphack.MainActivity");
     QUIState::ui_state.scene.map_on_top = false;
@@ -72,9 +73,10 @@ void HomeWindow::mousePressEvent(QMouseEvent* e) {
   }
   if (QUIState::ui_state.scene.started && !sidebar->isVisible() && !QUIState::ui_state.scene.map_on_top && map_btn.ptInRect(e->x(), e->y())) {
     QSoundEffect effect2;
-    effect2.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sound/warning_1.wav"));
+    effect2.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
+    //effect2.setLoopCount(1);
     //effect2.setLoopCount(QSoundEffect::Infinite);
-    //effect2.setVolume(0.25f);
+    effect2.setVolume(0.5);
     effect2.play();
     QProcess::execute("am start com.skt.tmap.ku/com.skt.tmap.activity.TmapNaviActivity");
     QUIState::ui_state.scene.map_on_top = true;

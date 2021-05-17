@@ -64,9 +64,10 @@ void Sidebar::mousePressEvent(QMouseEvent *event) {
   // OPKR map overlay
   if (overlay_btn.contains(event->pos()) && QUIState::ui_state.scene.started) {
     QSoundEffect effect;
-    effect.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sound/warning_1.wav"));
+    effect.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
+    //effect.setLoopCount(1);
     //effect.setLoopCount(QSoundEffect::Infinite);
-    //effect.setVolume(0.25f);
+    effect.setVolume(0.5);
     effect.play();
     QProcess::execute("am start --activity-task-on-home com.opkr.maphack/com.opkr.maphack.MainActivity");
     QUIState::ui_state.scene.map_on_top = false;
