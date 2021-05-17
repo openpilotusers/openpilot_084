@@ -432,13 +432,8 @@ VolumeControl::VolumeControl() : AbstractControl("EON 볼륨 조절(%)", "EON의
     refresh();
     QSoundEffect effect2;
     effect2.setSource(QUrl::fromLocalFile("/data/openpilot/selfdrive/assets/sounds/warning_1.wav"));
-    if (value > 0 ) {
-      effect2.setVolume(value * 0.01);
-      effect2.play();
-    } else if (value == 0) {
-      effect2.setVolume(0.5);
-      effect2.play();
-    }
+    effect2.setVolume(0.5);
+    effect2.play();
   });
   refresh();
 }
