@@ -60,14 +60,14 @@ void HomeWindow::mousePressEvent(QMouseEvent* e) {
   // OPKR add map
   if (QUIState::ui_state.scene.started && map_overlay_btn.ptInRect(e->x(), e->y())) {
     //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
-    QProcess::execute("am start --activity-task-on-home com.opkr.maphack/com.opkr.maphack.MainActivity");
+    QProcess::execute("am start -S --activity-task-on-home com.opkr.maphack/com.opkr.maphack.MainActivity");
     QUIState::ui_state.scene.map_on_top = false;
     QUIState::ui_state.scene.map_on_overlay = !QUIState::ui_state.scene.map_on_overlay;
     return;
   }
   if (QUIState::ui_state.scene.started && !sidebar->isVisible() && !QUIState::ui_state.scene.map_on_top && map_btn.ptInRect(e->x(), e->y())) {
     //QUIState::ui_state.sound->play(AudibleAlert::CHIME_WARNING1);
-    QProcess::execute("am start --activity-task-on-home com.skt.tmap.ku/com.skt.tmap.activity.TmapNaviActivity");
+    QProcess::execute("am start com.skt.tmap.ku/com.skt.tmap.activity.TmapNaviActivity");
     QUIState::ui_state.scene.map_on_top = true;
     Params().put("OpkrMapEnable", "1", 1);
     return;
