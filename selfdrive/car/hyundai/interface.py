@@ -253,7 +253,7 @@ class CarInterface(CarInterfaceBase):
     ret.emsAvailable = True if 608 and 809 in fingerprint[0] else False
 
     ret.radarOffCan = ret.sccBus == -1
-    ret.openpilotLongitudinalControl = params.get_bool("OpenpilotLongitudinalControl")
+    ret.openpilotLongitudinalControl = ret.sccBus == 2
     
     # enableCruise is true
     ret.enableCruise = not ret.radarOffCan
