@@ -520,10 +520,9 @@ class CarController():
           self.fca11inc += 4
         self.fca11alivecnt = self.fca11maxcnt - self.fca11inc
         aReqValue = CS.scc12["aReqValue"]
-        if 0 < CS.out.radarDistance <= 30:
+        if 0 < CS.out.radarDistance <= 149:
           if aReqValue > 0.:
-            stock_weight = 1.
-            #stock_weight = interp(CS.out.radarDistance, [4., 25.], [0.9, 0.])
+            stock_weight = interp(CS.out.radarDistance, [4., 30.], [1., 0.])
           elif aReqValue < 0.:
             stock_weight = interp(CS.out.radarDistance, [4., 25.], [1., 0.])
           else:
