@@ -119,7 +119,7 @@ def create_scc12(packer, apply_accel, enabled, scc_live, gaspressed, brakepresse
   values = scc12
 
   if not aebcmdact:
-    if enabled and car_fingerprint in [CAR.NIRO] and speed <= 10:
+    if enabled and car_fingerprint in [CAR.NIRO_HEV] and speed <= 10:
       values["ACCMode"] = 2 if gaspressed and (apply_accel > -0.2) else 1
       values["aReqRaw"] = apply_accel
       values["aReqValue"] = apply_accel
