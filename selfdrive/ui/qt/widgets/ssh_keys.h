@@ -143,6 +143,30 @@ public:
   }
 };
 
+class MadModeEnabledToggle : public ToggleControl {
+  Q_OBJECT
+
+public:
+  MadModeEnabledToggle() : ToggleControl("MainSW 오픈파일럿 ON/OFF", "크루즈 MainSW를 이용하여 오파를 활성화 합니다.", "../assets/offroad/icon_shell.png", Params().getBool("MadModeEnabled")) {
+    QObject::connect(this, &MadModeEnabledToggle::toggleFlipped, [=](int state) {
+      char value = state ? '1' : '0';
+      Params().put("MadModeEnabled", &value, 1);
+    });
+  }
+};
+
+class WhitePandaSupportToggle : public ToggleControl {
+  Q_OBJECT
+
+public:
+  WhitePandaSupportToggle() : ToggleControl("화이트판다 지원", "화이트판다 사용시 기능을 켜십시오", "../assets/offroad/icon_shell.png", Params().getBool("WhitePandaSupport")) {
+    QObject::connect(this, &WhitePandaSupportToggle::toggleFlipped, [=](int state) {
+      char value = state ? '1' : '0';
+      Params().put("WhitePandaSupport", &value, 1);
+    });
+  }
+};
+
 class SteerWindDownToggle : public ToggleControl {
   Q_OBJECT
 

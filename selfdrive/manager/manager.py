@@ -129,6 +129,7 @@ def manager_init():
     ("OpkrMonitorBlinkThreshold", "50"),
     ("MadModeEnabled", "1"),
     ("OpkrFanSpeedGain", "0"),
+    ("WhitePandaSupport", "0"),
   ]
 
   if TICI:

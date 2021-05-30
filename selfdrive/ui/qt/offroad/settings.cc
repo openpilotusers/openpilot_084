@@ -67,7 +67,7 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
   toggles.append(record_toggle);
   toggles.append(new ParamControl("EndToEndToggle",
                                    "차선 비활성화 모드 (알파)",
-                                   "이 모드에서 오픈파일럿은 차선을 따라 주행하지 않고 사람이 운전하는 것 처럼 주행합니다.",
+                                   "이 모드에서 오픈파일럿은 차선을 따라 주행하지 않고 사람이 운전하는 것 처럼 주행합니다. 기능 활성화 후 화면에서 토글버튼으로 사용여부를 조정가능합니다. OFF/ON/AUTO 3단계로 조절 가능",
                                    "../assets/offroad/icon_road.png",
                                    this));
 
@@ -82,7 +82,6 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
                                   "",
                                   "../assets/offroad/icon_network.png",
                                   this));
-
 #endif
   toggles.append(new ParamControl("OpkrEnableDriverMonitoring",
                                   "운전자 모니터링 사용",
@@ -97,11 +96,6 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
   toggles.append(new ParamControl("OpkrEnableUploader",
                                   "주행로그 서버 전송(사용주의-설명참조)",
                                   "주행로그를 콤마서버로 전송합니다. 판다 세이프티 코드 및 모니터링 수치를 수정한 경우는 활성화하지 마십시오. 기기가 콤마 네트워크로부터 차단되며 standalone상태로만 동작됩니다.",
-                                  "../assets/offroad/icon_shell.png",
-                                  this));
-  toggles.append(new ParamControl("MadModeEnabled",
-                                  "MainSW 오픈파일럿 ON/OFF",
-                                  "크루즈 MainSW를 이용하여 오파를 활성화 합니다.",
                                   "../assets/offroad/icon_shell.png",
                                   this));
   toggles.append(new ParamControl("CommaStockUI",
@@ -487,6 +481,7 @@ QWidget * user_panel(QWidget * parent) {
   layout->addWidget(new CruiseAutoResToggle());
   layout->addWidget(new RESChoice());
   layout->addWidget(new SteerWindDownToggle());
+  layout->addWidget(new MadModeEnabledToggle());
 
   layout->addWidget(horizontal_line());
   layout->addWidget(new LabelControl("개발자", ""));
@@ -498,6 +493,7 @@ QWidget * user_panel(QWidget * parent) {
   layout->addWidget(new LDWSToggle());
   layout->addWidget(new GearDToggle());
   layout->addWidget(new ComIssueToggle());
+  layout->addWidget(new WhitePandaSupportToggle());
   const char* cal_ok = "cp -f /data/openpilot/selfdrive/assets/addon/param/CalibrationParams /data/params/d/";
   layout->addWidget(new ButtonControl("캘리브레이션 강제 활성화", "실행", "실주행으로 캘리브레이션을 설정하지 않고 이온을 초기화 한경우 인게이지 확인용도로 캘리브레이션을 강제 설정합니다.",
                                       [=]() { 
