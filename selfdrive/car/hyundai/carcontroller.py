@@ -3,6 +3,7 @@ from common.realtime import DT_CTRL
 from common.numpy_fast import clip
 from common.numpy_fast import interp
 from selfdrive.car import apply_std_steer_torque_limits
+from selfdrive.car.hyundai.carstate import GearShifter
 from selfdrive.car.hyundai.hyundaican import create_lkas11, create_clu11, create_lfahda_mfc, \
                                              create_scc11, create_scc12, create_scc13, create_scc14, \
                                              create_scc42a, create_scc7d0, create_fca11, create_fca12, create_mdps12
@@ -273,9 +274,9 @@ class CarController():
 
     # disable if steer angle reach 90 deg, otherwise mdps fault in some models
     if self.opkr_maxanglelimit >= 90 and not self.steer_wind_down_enabled:
-      lkas_active = enabled and abs(CS.out.steeringAngleDeg) < self.opkr_maxanglelimit
+      lkas_active = enabled and abs(CS.out.steeringAngleDeg) < self.opkr_maxanglelimit and CS.out.gearShifter == GearShifter.drive
     else:
-      lkas_active = enabled and not CS.out.steerWarning
+      lkas_active = enabled and not CS.out.steerWarning and CS.out.gearShifter == GearShifter.drive
 
     if (( CS.out.leftBlinker and not CS.out.rightBlinker) or ( CS.out.rightBlinker and not CS.out.leftBlinker)) and CS.out.vEgo < LANE_CHANGE_SPEED_MIN and self.opkr_turnsteeringdisable:
       self.lanechange_manual_timer = 50
@@ -328,7 +329,7 @@ class CarController():
 
     clu11_speed = CS.clu11["CF_Clu_Vanz"]
     enabled_speed = 38 if CS.is_set_speed_in_mph  else 60
-    if clu11_speed > enabled_speed or not lkas_active:
+    if clu11_speed > enabled_speed or not lkas_active or CS.out.gearShifter != GearShifter.drive:
       enabled_speed = clu11_speed
 
     can_sends = []
@@ -543,15 +544,21 @@ class CarController():
         else:
           self.fca11inc += 4
         self.fca11alivecnt = self.fca11maxcnt - self.fca11inc
+        lead_objspd = CS.lead_objspd  # vRel (km/h)
         aReqValue = CS.scc12["aReqValue"]
         if 0 < CS.out.radarDistance <= 149:
           if aReqValue > 0.:
-            stock_weight = interp(CS.out.radarDistance, [3., 25.], [0.85, 0.])
+            stock_weight = interp(CS.out.radarDistance, [3., 25.], [0.7, 0.])
           elif aReqValue < 0.:
             stock_weight = interp(CS.out.radarDistance, [3., 25.], [1., 0.])
+            if lead_objspd < 0:
+              vRel_weight = interp(abs(lead_objspd), [0, 20], [1, 2])
+              stock_weight = interp(CS.out.radarDistance, [3. ** vRel_weight, 25. * vRel_weight], [1., 0.])
           else:
             stock_weight = 0.
           apply_accel = apply_accel * (1. - stock_weight) + aReqValue * stock_weight
+        else:
+          stock_weight = 0.
         can_sends.append(create_scc11(self.packer, frame, set_speed, lead_visible, self.scc_live, lead_dist, lead_vrel, lead_yrel, self.car_fingerprint, CS.clu_Vanz, CS.scc11))
         if (CS.brake_check or CS.cancel_check) and self.car_fingerprint not in [CAR.NIRO_EV]:
           can_sends.append(create_scc12(self.packer, apply_accel, enabled, self.scc_live, CS.out.gasPressed, 1, CS.out.stockAeb, self.car_fingerprint, CS.clu_Vanz, CS.scc12))
