@@ -583,6 +583,7 @@ int main() {
     fake_send = true;
   }
 
+  bool check_pass = (hw_type == cereal::PandaState::PandaType::WHITE_PANDA) || (hw_type == cereal::PandaState::PandaType::GREY_PANDA);
   while (!do_exit){
     std::vector<std::thread> threads;
     threads.push_back(std::thread(panda_state_thread));
@@ -590,10 +591,10 @@ int main() {
     // connect to the board
     usb_retry_connect();
 
+    if (!check_pass) threads.push_back(std::thread(pigeon_thread));
+    threads.push_back(std::thread(hardware_control_thread));
     threads.push_back(std::thread(can_send_thread));
     threads.push_back(std::thread(can_recv_thread));
-    threads.push_back(std::thread(hardware_control_thread));
-    threads.push_back(std::thread(pigeon_thread));
 
     for (auto &t : threads) t.join();
 
