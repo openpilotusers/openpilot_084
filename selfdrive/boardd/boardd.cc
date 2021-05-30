@@ -583,7 +583,7 @@ int main() {
     fake_send = true;
   }
 
-  bool check_pass = (hw_type == cereal::PandaState::PandaType::WHITE_PANDA) || (hw_type == cereal::PandaState::PandaType::GREY_PANDA);
+  bool check_pass = (panda->hw_type == cereal::PandaState::PandaType::WHITE_PANDA) || (panda->hw_type == cereal::PandaState::PandaType::GREY_PANDA);
   while (!do_exit){
     std::vector<std::thread> threads;
     threads.push_back(std::thread(panda_state_thread));
