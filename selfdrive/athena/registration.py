@@ -59,11 +59,12 @@ def register(show_spinner=False) -> str:
     params.put("HardwareSerial", serial)
 
     backoff = 0
+    try_count = 0
     while True:
       try:
         register_token = jwt.encode({'register': True, 'exp': datetime.utcnow() + timedelta(hours=1)}, private_key, algorithm='RS256')
         cloudlog.info("getting pilotauth")
-        resp = api_get("v2/pilotauth/", method='POST', timeout=15,
+        resp = api_get("v2/pilotauth/", method='POST', timeout=5,
                        imei=imei1, imei2=imei2, serial=serial, public_key=public_key, register_token=register_token)
 
         if resp.status_code in (402, 403):
@@ -76,6 +77,9 @@ def register(show_spinner=False) -> str:
           dongle_id = dongleauth["dongle_id"]
         break
       except Exception:
+        try_count += 1
+        if try_count >= 3:
+          break
         cloudlog.exception("failed to authenticate")
         backoff = min(backoff + 1, 15)
         time.sleep(backoff)
