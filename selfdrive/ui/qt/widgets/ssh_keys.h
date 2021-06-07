@@ -167,6 +167,18 @@ public:
   }
 };
 
+class SteerWarningFixToggle : public ToggleControl {
+  Q_OBJECT
+
+public:
+  SteerWarningFixToggle() : ToggleControl("조향경고 해제", "차량에서 조향에러가 발생하여 오파 실행이 불가능할 때 기능을 켜십시오(일부 차량 Only). 주행 중 정상적인 에러환경에서 발생시에는 기능을 켜지 마십시오.", "../assets/offroad/icon_shell.png", Params().getBool("SteerWarningFix")) {
+    QObject::connect(this, &SteerWarningFixToggle::toggleFlipped, [=](int state) {
+      char value = state ? '1' : '0';
+      Params().put("SteerWarningFix", &value, 1);
+    });
+  }
+};
+
 class SteerWindDownToggle : public ToggleControl {
   Q_OBJECT
 
