@@ -40,6 +40,7 @@ def create_friction_brake_command(packer, bus, apply_brake, idx, near_stop, at_f
     mode = 0xa
     if at_full_stop:
       mode = 0xd
+ if enabled and CP.carFingerprint in (CAR.TRAILBLAZER): # FIXME: Add trailblazer in here. It is not certain. In this case, there is no problem.
 
     # TODO: this is to have GM bringing the car to complete stop,
     # but currently it conflicts with OP controls, so turned off.
