@@ -92,6 +92,18 @@ class CarInterface(CarInterfaceBase):
       ret.steerRatioRear = 0.
       ret.centerToFront = ret.wheelbase * 0.49
 
+    elif candidate == CAR.TRAILBLAZER:
+      ret.mass = 1365. + STD_CARGO_KG
+      ret.wheelbase = 2.64
+      ret.steerRatio = 16
+      ret.centerToFront = ret.wheelbase * 0.38  # FIXME: Need to tune more.
+      tire_stiffness_factor = 1.0
+      ret.steerActuatorDelay = 0.18
+      ret.minSteerSpeed = -1.
+      ret.minEnableSpeed = -1.  # engage speed is decided by pcm
+      ret.autoResumeSng = True
+      CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
+
     # TODO: get actual value, for now starting with reasonable value for
     # civic and scaling by mass and wheelbase
     ret.rotationalInertia = scale_rot_inertia(ret.mass, ret.wheelbase)
